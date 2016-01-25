@@ -2,6 +2,10 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include <QPushButton>
+#include <QLabel>
+#include <QLineEdit>
+#include <QtSql/QSqlDatabase>
 
 namespace Ui {
 class Dialog;
@@ -17,6 +21,16 @@ public:
 
 private:
     Ui::Dialog *ui;
+
+    QLabel *userLbl;
+    QLabel *passLbl;
+    QLineEdit *userEdit;
+    QLineEdit *passEdit;
+    QPushButton *okBtn;
+
+private slots:
+
+    void getUser();
 };
 
 #endif // DIALOG_H
