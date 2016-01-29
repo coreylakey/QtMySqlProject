@@ -31,9 +31,9 @@ Dialog::Dialog(QWidget *parent) :
     okBtn = new QPushButton("OK", this );
     okBtn->setGeometry(QRect(250, 120, 80, 30));
 
-
-
+//Set Button Connections
     connect(okBtn,SIGNAL( clicked() ),this,SLOT( getUser() ));
+
 }
 
 Dialog::~Dialog()
@@ -78,20 +78,21 @@ void Dialog::getUser()
             //Right now only two users are in the database, admin or guest.
             if( userName == "admin" && passEdit->text() == password )   //Admin Account
             {
-                QMessageBox::critical(this,qApp->tr("warning"),qApp->tr("Admin privelages activated."),QMessageBox::Ok);
+                QMessageBox::information(this,qApp->tr("warning"),qApp->tr("Admin privelages activated."),QMessageBox::Ok);
             }
             else if( userName == "guest" && passEdit->text() == password )  //Guest Account
             {
-                QMessageBox::critical(this,qApp->tr("warning"),qApp->tr("Guest Account activated."),QMessageBox::Ok);
+                QMessageBox::information(this,qApp->tr("warning"),qApp->tr("Guest Account activated."),QMessageBox::Ok);
             }
             else
             {
                 qDebug() << "User not defined in database";
+                QMessageBox::critical(this,qApp->tr("warning"),qApp->tr("User not defined."),QMessageBox::Ok);
                 return;
             }
 
             demoGraph.open();
-            demoGraph.setWindowTitle("Demographics");
+            demoGraph.setWindowTitle("South Coast Family Harbor");
 
 
     }

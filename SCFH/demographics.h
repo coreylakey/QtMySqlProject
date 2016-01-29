@@ -6,6 +6,13 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QtSql/QSqlDatabase>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QButtonGroup>
+#include <QMessageBox>
+#include <QDebug>
+
 
 namespace Ui {
 class Demographics;
@@ -39,12 +46,27 @@ private:
     QLineEdit* fNameEdit;
     QLineEdit* lNameEdit;
     QLineEdit* addressEdit;
-    //QLineEdit* cityEdit;          //Needs to be drop down menu
-    //QLineEdit* childAgeEdit;      //Needs to be drop down menu
-    //QLineEdit* childGenderEdit;   //Needs to be check boxes
-    //QLineEdit* livSitEdit;        //Needs to be drop down menu
-    //QLineEdit* houseTypeEdit;     //Needs to be drop down menu
-    //QLineEdit* incSrcEdit;        //Needs to be drop down menu
+//ComboBoxes
+    QComboBox* cityEdit;
+    QComboBox* childAgeEdit;
+    QComboBox* livSitEdit;
+    QComboBox* houseTypeEdit;
+    QComboBox* incSrcEdit;
+    QComboBox* howHeardEdit;
+//CheckBoxes
+    QCheckBox* maleBox;
+    QCheckBox* femaleBox;
+//CheckBox Button Group (For exclusive checking)
+    QButtonGroup* genderGroup;
+//Cancel/Ok buttons
+    QPushButton* okBtn;
+    QPushButton* cancelBtn;
+
+private slots:
+
+    void sendInfo();
+    void cancel();
+
 
 
 
