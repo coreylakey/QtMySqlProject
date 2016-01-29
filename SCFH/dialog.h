@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QtSql/QSqlDatabase>
+#include "demographics.h"
 
 namespace Ui {
 class Dialog;
@@ -27,6 +28,7 @@ private:
     QLineEdit *userEdit;
     QLineEdit *passEdit;
     QPushButton *okBtn;
+    Demographics demoGraph;
 
 private slots:
 

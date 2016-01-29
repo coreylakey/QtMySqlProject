@@ -95,8 +95,8 @@ void MainWindow::connect_db()
     if(database.isOpen())
          QMessageBox::information(this,qApp->tr("Success"),qApp->tr("Successfully connected to database."),QMessageBox::Ok);
 
-    demoGraph.show();
-    demoGraph.setWindowTitle(dbNameInput->text());
+    login.show();
+    login.setWindowTitle(dbNameInput->text());
 }
 void MainWindow::connect_quit()
 {
@@ -111,5 +111,5 @@ void MainWindow::connect_quit()
     dbAddressInput->setEnabled(true);
     conBtn->setText("connect");
     connect(conBtn,SIGNAL(clicked()),this,SLOT(connect_db()));
-    demoGraph.close();
+    login.close();
 }

@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QtSql/QSqlDatabase>
 #include "dialog.h"
+#include "demographics.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,7 +38,7 @@ private:
     QLineEdit *dbAddressInput ;
     QLineEdit *dbPortInput ;
     QSqlDatabase database ;
-    Dialog demoGraph ;
+    Dialog login ;
 private slots:
 
     void connect_db();

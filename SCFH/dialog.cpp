@@ -60,7 +60,7 @@ void Dialog::getUser()
             QSqlQuery query;
             query.prepare("select username, password from login where username = :user and password = :password");
             query.bindValue(":user", userEdit->text() );
-            query.bindValue(":password", userEdit->text());
+            query.bindValue(":password", passEdit->text());
             query.exec();
             //Get query result indexes for reading
             QSqlRecord rec = query.record();
@@ -85,7 +85,14 @@ void Dialog::getUser()
                 QMessageBox::critical(this,qApp->tr("warning"),qApp->tr("Guest Account activated."),QMessageBox::Ok);
             }
             else
+            {
                 qDebug() << "User not defined in database";
+                return;
+            }
+
+            demoGraph.open();
+            demoGraph.setWindowTitle("Demographics");
+
 
     }
 
