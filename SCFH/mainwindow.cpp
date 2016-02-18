@@ -6,6 +6,7 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlError>
 #include <QtSql>
+//#include <QWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,10 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("South Coast Family Harbor");
 
     QLabel *mysql = new QLabel("Database Info",this);
+    mysql->setStyleSheet("QLabel {background-color : yellow; color : green;}"); //this sets Qlabel colors.
     mysql->setGeometry(QRect(20,20,300,30));
     dbUserLb = new QLabel("User",this);
+    dbUserLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
     dbUserInput = new QLineEdit("root",this);
     dbPwdLb = new QLabel("Pwd",this);
+    dbPwdLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
     dbPwdInput = new QLineEdit("shoogadabob",this);
     dbUserLb->setGeometry(QRect(20,60,80,30));
     dbUserInput->setGeometry(QRect(100,60,200,30));
@@ -30,14 +34,17 @@ MainWindow::MainWindow(QWidget *parent) :
     dbPwdInput->setGeometry(QRect(100,100,200,30));
     dbPwdInput->setEchoMode(QLineEdit::Password);
     dbNameLb = new QLabel("DB Name",this);
+    dbNameLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
     dbNameLb->setGeometry(QRect(20,140,200,30));
     dbNameInput = new QLineEdit("scfh",this);
     dbNameInput->setGeometry(QRect(100,140,200,30));
     dbAddressLb = new QLabel("DB Address",this);
+    dbAddressLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
     dbAddressLb->setGeometry(QRect(20,180,200,30));
     dbAddressInput = new QLineEdit("localhost",this);
     dbAddressInput->setGeometry(QRect(100,180,200,30));
     dbPortLb = new QLabel("DB Port",this);
+    dbPortLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
     dbPortLb->setGeometry(QRect(20,220,200,30));
     dbPortInput = new QLineEdit("3306",this);
     dbPortInput->setGeometry(QRect(100,220,200,30));
@@ -48,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(conBtn,SIGNAL(clicked()),this,SLOT(connect_db()));
     connect(quitBtn,SIGNAL(clicked()),this,SLOT(close()));
     conStatuLb = new QLabel("Status: Not Connected ",this);
+    conStatuLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
     conStatuLb->setGeometry(QRect(50,260,200,30));
 
 }
