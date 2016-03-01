@@ -12,6 +12,7 @@
 #include <QButtonGroup>
 #include <QMessageBox>
 #include <QDebug>
+#include "gifts.h"
 
 
 namespace Ui {
@@ -28,7 +29,8 @@ public:
 
 private:
     Ui::Demographics *ui;
-
+//New Gifts Window
+    gifts giftWindow;
 //Labels
     QLabel* fNamelbl;
     QLabel* lNamelbl;

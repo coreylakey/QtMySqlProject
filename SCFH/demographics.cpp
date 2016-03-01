@@ -1,5 +1,3 @@
-//More comments please!  Drew
-
 #include "demographics.h"
 #include "ui_demographics.h"
 
@@ -143,6 +141,8 @@ void Demographics::sendInfo()
     else
     {
         qDebug() << "all fields complete. Query initiated.";
+        giftWindow.open();
+        giftWindow.setWindowTitle("South Coast Family Harbor");
     }
 }
 

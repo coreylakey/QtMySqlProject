@@ -1,5 +1,3 @@
-//You have not made any comments Bad programer
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
