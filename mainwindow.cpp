@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-//You have not made any comments Bad programer
-=======
->>>>>>> b117b4d91bac1f28a0504e366755bb1dacbe4d06
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
@@ -24,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 //Main Background Image
-    QPixmap bkgnd("/home/mycoal/Desktop/SCFH/QtMySqlUIProject/SCFH/bg_tile.jpg");
+    QPixmap bkgnd("/home/corey/Desktop/QtProjects/SCFH/bg_tile.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -32,10 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //Banner
     banner = new QLabel(this);
-    QPixmap banner_pixmap("/home/mycoal/Desktop/SCFH/QtMySqlUIProject/SCFH/banner.png");
+    QPixmap banner_pixmap("/home/corey/Desktop/QtProjects/SCFH/banner.png");
     banner->setPixmap(banner_pixmap);
     banner->setMinimumSize(180, 161);
-    banner->setAlignment(Qt::AlignBaseline);
+    //banner->setAlignment(Qt::AlignBaseline);
     banner->setGeometry(QRect(100,10,0,0));
 
 

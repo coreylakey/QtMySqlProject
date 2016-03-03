@@ -8,8 +8,7 @@ gifts::gifts(QWidget *parent) :
     ui->setupUi(this);
 
 //Table Creation
-    table = new QTableView(this);
-    table->setHorizontalHeader();
+    //COMING SOON
 }
 
 gifts::~gifts()
