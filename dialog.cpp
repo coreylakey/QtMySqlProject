@@ -16,6 +16,14 @@ Dialog::Dialog(QWidget *parent) :
     this->setMaximumSize(350,150);
     this->setMinimumSize(350,150);
 
+//Main Background Image
+    QPixmap bkgnd("/home/corey/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
+
+
 //Create Window / connections
     this->setWindowTitle("South Coast Family Harbor");
 
