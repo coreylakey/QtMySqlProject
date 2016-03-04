@@ -7,8 +7,23 @@ gifts::gifts(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//Table Creation
-    //COMING SOON
+
+
+//Create Window / connections
+    this->setWindowTitle("South Coast Family Harbor");
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 gifts::~gifts()
