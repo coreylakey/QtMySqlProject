@@ -41,6 +41,7 @@ private:
     QLabel *socks;
     QLabel *shoes;
     QLabel *misc;
+    QLabel *banner ;
 
 };
 
