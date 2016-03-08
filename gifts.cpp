@@ -33,6 +33,8 @@ gifts::gifts(QWidget *parent) :
     diapers = new QLabel("Diapers",this);
     diapers->setStyleSheet("QLabel {font : bold;}");
     diapers->setGeometry(QRect(20,180,300,30));
+    diapSize = new QLabel("Diaper Size", this);
+    diapSize->setGeometry(QRect(200,180,300,30));
     wipes = new QLabel("Wipes", this);
     wipes->setStyleSheet("QLabel {font : bold;}");
     wipes->setGeometry(QRect(20,200,300,30));
@@ -75,12 +77,14 @@ gifts::gifts(QWidget *parent) :
     clothes = new QLabel("Clothes", this);
     clothes->setStyleSheet("QLabel {font : bold;}");
     clothes->setGeometry(QRect(20, 460, 300, 30));
+    clotheSize = new QLabel("Clothes Size", this);
+    clotheSize->setGeometry(QRect(200, 460, 300, 30));
     newClothes = new QLabel("New", this);
     newClothes->setStyleSheet("QLabel {font : bold;}");
-    newClothes->setGeometry(QRect(20, 480, 300, 30));
+    newClothes->setGeometry(QRect(40, 480, 300, 30));
     usedClothes = new QLabel("Used", this);
     usedClothes->setStyleSheet("QLabel {font : bold;}");
-    usedClothes->setGeometry(QRect(20, 500, 300, 30));
+    usedClothes->setGeometry(QRect(40, 500, 300, 30));
     socks = new QLabel("Socks", this);
     socks->setStyleSheet("QLabel {font : bold;}");
     socks->setGeometry(QRect(20, 520, 300, 30));
@@ -90,6 +94,82 @@ gifts::gifts(QWidget *parent) :
     misc = new QLabel("Miscellaneous", this);
     misc->setStyleSheet("QLabel {font : bold;}");
     misc->setGeometry(QRect(20, 560, 300, 30));
+//Spin Box Creation
+    diaperNum = new QSpinBox(this);
+    diaperNum->setGeometry(QRect(140, 180, 50, 20));
+    wipeNum = new QSpinBox(this);
+    wipeNum->setGeometry(QRect(140, 200, 50, 20));
+    blanketNum = new QSpinBox(this);
+    blanketNum->setGeometry(QRect(140, 220, 50, 20));
+    lotionNum = new QSpinBox(this);
+    lotionNum->setGeometry(QRect(140, 240, 50, 20));
+    washNum = new QSpinBox(this);
+    washNum->setGeometry(QRect(140, 260, 50, 20));
+    pwderNum = new QSpinBox(this);
+    pwderNum->setGeometry(QRect(140, 280, 50, 20));
+    cremeNum = new QSpinBox(this);
+    cremeNum->setGeometry(QRect(140, 300, 50, 20));
+    tthBrshNum = new QSpinBox(this);
+    tthBrshNum->setGeometry(QRect(140, 320, 50, 20));
+    tthPsteNum = new QSpinBox(this);
+    tthPsteNum->setGeometry(QRect(140, 340, 50, 20));
+    bottleNum = new QSpinBox(this);
+    bottleNum->setGeometry(QRect(140, 360, 50, 20));
+    sippCupNum = new QSpinBox(this);
+    sippCupNum->setGeometry(QRect(140, 380, 50, 20));
+    plateNum = new QSpinBox(this);
+    plateNum->setGeometry(QRect(140, 400, 50, 20));
+    bthClothesNum = new QSpinBox(this);
+    bthClothesNum->setGeometry(QRect(140, 420, 50, 20));
+    bthSpongeNum = new QSpinBox(this);
+    bthSpongeNum->setGeometry(QRect(140, 440, 50, 20));
+    clthesNum = new QSpinBox(this);
+    clthesNum->setGeometry(QRect(140, 460, 50, 20));
+    socksNum = new QSpinBox(this);
+    socksNum->setGeometry(QRect(140, 520, 50, 20));
+    shoesNum = new QSpinBox(this);
+    shoesNum->setGeometry(QRect(140, 540, 50, 20));
+    miscNum = new QSpinBox(this);
+    miscNum->setGeometry(QRect(140, 560, 50, 20));
+
+//ComboBoxes Creation
+    clothesBox = new QComboBox(this);
+    diapersBox = new QComboBox(this);
+//ComboBox String Creation
+    QStringList clothesList;
+    QStringList diapersList;
+    clothesList << "Premie" << "0-3" << "3-6" << "6-9" << "9-12" << "12-18" << "2T" << "3T" << "4T" << "5T";
+    diapersList << "Newborn" << "1" << "2" << "3" << "4" << "5" << "6";
+//ComboBoxes attributes
+    clothesBox->addItems(clothesList);
+    clothesBox->setGeometry(QRect(230,480,100,30));
+    diapersBox->addItems(diapersList);
+    diapersBox->setGeometry(QRect(230,200,100,30));
+
+//CheckBoxes Creation
+    newBox   = new QCheckBox(this);
+    usedBox = new QCheckBox(this);
+//CheckBoxes Attributes
+    newBox->setGeometry(QRect(140, 480, 50, 20));
+    //newBox->setText("New");
+    usedBox->setGeometry(QRect(140, 500, 50, 20));
+    //usedBox->setText("Used");
+//Make Gender Exclusive
+    clothesGroup = new QButtonGroup(this);
+    clothesGroup->addButton(newBox);
+    clothesGroup->addButton(usedBox);
+    clothesGroup->setExclusive(true);
+
+//Cancel/Ok buttons Creation
+    okBtn       = new QPushButton(this);
+    cancelBtn   = new QPushButton(this);
+//Cancel/Ok buttons attributes
+    okBtn->setText("SUBMIT");
+    cancelBtn->setText("Cancel");
+//Cancel/Ok buttons Position
+    okBtn->setGeometry(QRect(230, 520, 100, 30));
+    cancelBtn->setGeometry(QRect(230, 550, 100, 30));
+
 
 
 }
