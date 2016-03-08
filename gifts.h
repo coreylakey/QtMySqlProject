@@ -8,6 +8,7 @@
 #include <QCheckBox>
 #include <QButtonGroup>
 #include <QPushButton>
+#include <QComboBox>
 
 namespace Ui {
 class gifts;
@@ -26,6 +27,7 @@ private:
 
 //Labels
     QLabel *diapers;
+    QLabel *diapSize;   //indented
     QLabel *wipes;
     QLabel *blankets;
     QLabel *bbyLotion;
@@ -40,6 +42,7 @@ private:
     QLabel *bthClothes;
     QLabel *bthSponges;
     QLabel *clothes;
+    QLabel *clotheSize; //indented
     QLabel *newClothes;
     QLabel *usedClothes;
     QLabel *socks;
@@ -65,6 +68,9 @@ private:
     QSpinBox *socksNum;
     QSpinBox *shoesNum;
     QSpinBox *miscNum;
+//ComboBoxes
+    QComboBox *clothesBox;
+    QComboBox *diapersBox;
 //CheckBoxes
     QCheckBox* newBox;
     QCheckBox* usedBox;

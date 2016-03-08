@@ -33,6 +33,8 @@ gifts::gifts(QWidget *parent) :
     diapers = new QLabel("Diapers",this);
     diapers->setStyleSheet("QLabel {font : bold;}");
     diapers->setGeometry(QRect(20,180,300,30));
+    diapSize = new QLabel("Diaper Size", this);
+    diapSize->setGeometry(QRect(200,180,300,30));
     wipes = new QLabel("Wipes", this);
     wipes->setStyleSheet("QLabel {font : bold;}");
     wipes->setGeometry(QRect(20,200,300,30));
@@ -75,6 +77,8 @@ gifts::gifts(QWidget *parent) :
     clothes = new QLabel("Clothes", this);
     clothes->setStyleSheet("QLabel {font : bold;}");
     clothes->setGeometry(QRect(20, 460, 300, 30));
+    clotheSize = new QLabel("Clothes Size", this);
+    clotheSize->setGeometry(QRect(200, 460, 300, 30));
     newClothes = new QLabel("New", this);
     newClothes->setStyleSheet("QLabel {font : bold;}");
     newClothes->setGeometry(QRect(40, 480, 300, 30));
@@ -127,6 +131,20 @@ gifts::gifts(QWidget *parent) :
     shoesNum->setGeometry(QRect(140, 540, 50, 20));
     miscNum = new QSpinBox(this);
     miscNum->setGeometry(QRect(140, 560, 50, 20));
+
+//ComboBoxes Creation
+    clothesBox = new QComboBox(this);
+    diapersBox = new QComboBox(this);
+//ComboBox String Creation
+    QStringList clothesList;
+    QStringList diapersList;
+    clothesList << "Premie" << "0-3" << "3-6" << "6-9" << "9-12" << "12-18" << "2T" << "3T" << "4T" << "5T";
+    diapersList << "Newborn" << "1" << "2" << "3" << "4" << "5" << "6";
+//ComboBoxes attributes
+    clothesBox->addItems(clothesList);
+    clothesBox->setGeometry(QRect(230,480,100,30));
+    diapersBox->addItems(diapersList);
+    diapersBox->setGeometry(QRect(230,200,100,30));
 
 //CheckBoxes Creation
     newBox   = new QCheckBox(this);
