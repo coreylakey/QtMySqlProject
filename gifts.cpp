@@ -90,6 +90,46 @@ gifts::gifts(QWidget *parent) :
     misc = new QLabel("Miscellaneous", this);
     misc->setStyleSheet("QLabel {font : bold;}");
     misc->setGeometry(QRect(20, 560, 300, 30));
+//Spin Box Creation
+    diaperNum = new QSpinBox(this);
+    diaperNum->setGeometry(QRect(140, 180, 50, 20));
+    wipeNum = new QSpinBox(this);
+    wipeNum->setGeometry(QRect(140, 200, 50, 20));
+    blanketNum = new QSpinBox(this);
+    blanketNum->setGeometry(QRect(140, 220, 50, 20));
+    lotionNum = new QSpinBox(this);
+    lotionNum->setGeometry(QRect(140, 240, 50, 20));
+    washNum = new QSpinBox(this);
+    washNum->setGeometry(QRect(140, 260, 50, 20));
+    pwderNum = new QSpinBox(this);
+    pwderNum->setGeometry(QRect(140, 280, 50, 20));
+    cremeNum = new QSpinBox(this);
+    cremeNum->setGeometry(QRect(140, 300, 50, 20));
+    tthBrshNum = new QSpinBox(this);
+    tthBrshNum->setGeometry(QRect(140, 320, 50, 20));
+    tthPsteNum = new QSpinBox(this);
+    tthPsteNum->setGeometry(QRect(140, 340, 50, 20));
+    bottleNum = new QSpinBox(this);
+    bottleNum->setGeometry(QRect(140, 360, 50, 20));
+    sippCupNum = new QSpinBox(this);
+    sippCupNum->setGeometry(QRect(140, 380, 50, 20));
+    plateNum = new QSpinBox(this);
+    plateNum->setGeometry(QRect(140, 400, 50, 20));
+    bthClothesNum = new QSpinBox(this);
+    bthClothesNum->setGeometry(QRect(140, 420, 50, 20));
+    bthSpongeNum = new QSpinBox(this);
+    bthSpongeNum->setGeometry(QRect(140, 440, 50, 20));
+    clthesNum = new QSpinBox(this);
+    clthesNum->setGeometry(QRect(140, 460, 50, 20));
+
+        //CheckBoxes go in between this spin boxes
+
+    socksNum = new QSpinBox(this);
+    socksNum->setGeometry(QRect(140, 520, 50, 20));
+    shoesNum = new QSpinBox(this);
+    shoesNum->setGeometry(QRect(140, 540, 50, 20));
+    miscNum = new QSpinBox(this);
+    miscNum->setGeometry(QRect(140, 560, 50, 20));
 
 
 }

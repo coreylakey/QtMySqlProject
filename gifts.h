@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QTableView>
 #include <QLabel>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QButtonGroup>
 
 namespace Ui {
 class gifts;
@@ -41,7 +44,33 @@ private:
     QLabel *socks;
     QLabel *shoes;
     QLabel *misc;
-    QLabel *banner ;
+    QLabel *banner;
+//Spin Boxes
+    QSpinBox *diaperNum;
+    QSpinBox *wipeNum;
+    QSpinBox *blanketNum;
+    QSpinBox *lotionNum;
+    QSpinBox *washNum;
+    QSpinBox *pwderNum;
+    QSpinBox *cremeNum;
+    QSpinBox *tthBrshNum;
+    QSpinBox *tthPsteNum;
+    QSpinBox *bottleNum;
+    QSpinBox *sippCupNum;
+    QSpinBox *plateNum;
+    QSpinBox *bthClothesNum;
+    QSpinBox *bthSpongeNum;
+    QSpinBox *clthesNum;
+    QSpinBox *socksNum;
+    QSpinBox *shoesNum;
+    QSpinBox *miscNum;
+//CheckBoxes
+    QCheckBox* newBox;
+    QCheckBox* usedBox;
+//CheckBox Button Group (For exclusive checking)
+    QButtonGroup* clothesGroup;
+
+
 
 };
 
