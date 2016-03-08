@@ -121,15 +121,27 @@ gifts::gifts(QWidget *parent) :
     bthSpongeNum->setGeometry(QRect(140, 440, 50, 20));
     clthesNum = new QSpinBox(this);
     clthesNum->setGeometry(QRect(140, 460, 50, 20));
-
-        //CheckBoxes go in between this spin boxes
-
     socksNum = new QSpinBox(this);
     socksNum->setGeometry(QRect(140, 520, 50, 20));
     shoesNum = new QSpinBox(this);
     shoesNum->setGeometry(QRect(140, 540, 50, 20));
     miscNum = new QSpinBox(this);
     miscNum->setGeometry(QRect(140, 560, 50, 20));
+
+//CheckBoxes Creation
+    newBox   = new QCheckBox(this);
+    usedBox = new QCheckBox(this);
+//CheckBoxes Attributes
+    newBox->setGeometry(QRect(140, 480, 50, 20));
+    //newBox->setText("New");
+    usedBox->setGeometry(QRect(140, 500, 50, 20));
+    //usedBox->setText("Used");
+//Make Gender Exclusive
+    clothesGroup = new QButtonGroup(this);
+    clothesGroup->addButton(newBox);
+    clothesGroup->addButton(usedBox);
+    clothesGroup->setExclusive(true);
+
 
 
 }
