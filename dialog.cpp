@@ -17,7 +17,7 @@ Dialog::Dialog(QWidget *parent) :
     this->setMinimumSize(350,150);
 
 //Main Background Image
-    QPixmap bkgnd("/home/corey/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap bkgnd("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -41,6 +41,7 @@ Dialog::Dialog(QWidget *parent) :
 
 //Set Button Connections
     connect(okBtn,SIGNAL( clicked() ),this,SLOT( getUser() ));
+
 
 }
 
@@ -98,7 +99,7 @@ void Dialog::getUser()
                 QMessageBox::critical(this,qApp->tr("warning"),qApp->tr("User not defined."),QMessageBox::Ok);
                 return;
             }
-
+            this->hide();
             demoGraph.open();
             demoGraph.setWindowTitle("South Coast Family Harbor");
 

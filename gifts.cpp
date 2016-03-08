@@ -16,7 +16,7 @@ gifts::gifts(QWidget *parent) :
 
 
 //Main Background Image
-    QPixmap bkgnd("/home/corey/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap bkgnd("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -24,7 +24,7 @@ gifts::gifts(QWidget *parent) :
 
 //Banner
     banner = new QLabel(this);
-    QPixmap banner_pixmap("/home/corey/Desktop/QtProjects/SCFH/banner.png");
+    QPixmap banner_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/banner.png");
     banner->setPixmap(banner_pixmap);
     banner->setMinimumSize(180, 161);
     banner->setGeometry(QRect(100,10,0,0));
@@ -169,8 +169,8 @@ gifts::gifts(QWidget *parent) :
 //Cancel/Ok buttons Position
     okBtn->setGeometry(QRect(230, 520, 100, 30));
     cancelBtn->setGeometry(QRect(230, 550, 100, 30));
-
-
+//Button signal/slots
+    connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
 
 }
 

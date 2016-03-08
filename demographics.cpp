@@ -17,7 +17,7 @@ Demographics::Demographics(QWidget *parent) :
     //HOPEFULLY THIS WORKS...
 
 //Main Background Image
-    QPixmap bkgnd("/home/corey/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap bkgnd("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -125,7 +125,8 @@ Demographics::Demographics(QWidget *parent) :
 
 //Make Button Connections
         connect(okBtn,SIGNAL( clicked() ),this,SLOT( sendInfo() ));
-        connect(cancelBtn, SIGNAL( clicked() ),this, SLOT( cancel() ));
+        //connect(cancelBtn, SIGNAL( clicked() ),this, SLOT( cancel() ));
+        connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
 
 
 }
@@ -153,6 +154,7 @@ void Demographics::sendInfo()
     else
     {
         qDebug() << "all fields complete. Query initiated.";
+        this->hide();
         giftWindow.open();
         giftWindow.setWindowTitle("South Coast Family Harbor");
     }
