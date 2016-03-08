@@ -77,10 +77,10 @@ gifts::gifts(QWidget *parent) :
     clothes->setGeometry(QRect(20, 460, 300, 30));
     newClothes = new QLabel("New", this);
     newClothes->setStyleSheet("QLabel {font : bold;}");
-    newClothes->setGeometry(QRect(20, 480, 300, 30));
+    newClothes->setGeometry(QRect(40, 480, 300, 30));
     usedClothes = new QLabel("Used", this);
     usedClothes->setStyleSheet("QLabel {font : bold;}");
-    usedClothes->setGeometry(QRect(20, 500, 300, 30));
+    usedClothes->setGeometry(QRect(40, 500, 300, 30));
     socks = new QLabel("Socks", this);
     socks->setStyleSheet("QLabel {font : bold;}");
     socks->setGeometry(QRect(20, 520, 300, 30));
@@ -141,6 +141,16 @@ gifts::gifts(QWidget *parent) :
     clothesGroup->addButton(newBox);
     clothesGroup->addButton(usedBox);
     clothesGroup->setExclusive(true);
+
+//Cancel/Ok buttons Creation
+    okBtn       = new QPushButton(this);
+    cancelBtn   = new QPushButton(this);
+//Cancel/Ok buttons attributes
+    okBtn->setText("SUBMIT");
+    cancelBtn->setText("Cancel");
+//Cancel/Ok buttons Position
+    okBtn->setGeometry(QRect(230, 520, 100, 30));
+    cancelBtn->setGeometry(QRect(230, 550, 100, 30));
 
 
 

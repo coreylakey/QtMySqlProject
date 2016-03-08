@@ -7,6 +7,7 @@
 #include <QSpinBox>
 #include <QCheckBox>
 #include <QButtonGroup>
+#include <QPushButton>
 
 namespace Ui {
 class gifts;
@@ -69,7 +70,9 @@ private:
     QCheckBox* usedBox;
 //CheckBox Button Group (For exclusive checking)
     QButtonGroup* clothesGroup;
-
+//Cancel/Ok buttons
+    QPushButton* okBtn;
+    QPushButton* cancelBtn;
 
 
 };
