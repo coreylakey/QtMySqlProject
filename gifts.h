@@ -80,6 +80,8 @@ private:
     QPushButton* okBtn;
     QPushButton* cancelBtn;
 
+private slots:
+    void giftSubmit();
 
 };
 

@@ -13,11 +13,8 @@ Demographics::Demographics(QWidget *parent) :
 //Create Window / connections
     this->setWindowTitle("South Coast Family Harbor");
 
-
-    //HOPEFULLY THIS WORKS...
-
 //Main Background Image
-    QPixmap bkgnd("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap bkgnd("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);

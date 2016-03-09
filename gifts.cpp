@@ -1,5 +1,9 @@
 #include "gifts.h"
 #include "ui_gifts.h"
+#include <QSqlQuery>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlRecord>
 
 gifts::gifts(QWidget *parent) :
     QDialog(parent),
@@ -16,7 +20,7 @@ gifts::gifts(QWidget *parent) :
 
 
 //Main Background Image
-    QPixmap bkgnd("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap bkgnd("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -24,7 +28,7 @@ gifts::gifts(QWidget *parent) :
 
 //Banner
     banner = new QLabel(this);
-    QPixmap banner_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/banner.png");
+    QPixmap banner_pixmap("/home/corey/Desktop/SCFHCOPY/banner.png");
     banner->setPixmap(banner_pixmap);
     banner->setMinimumSize(180, 161);
     banner->setGeometry(QRect(100,10,0,0));
@@ -131,7 +135,6 @@ gifts::gifts(QWidget *parent) :
     shoesNum->setGeometry(QRect(140, 540, 50, 20));
     miscNum = new QSpinBox(this);
     miscNum->setGeometry(QRect(140, 560, 50, 20));
-
 //ComboBoxes Creation
     clothesBox = new QComboBox(this);
     diapersBox = new QComboBox(this);
@@ -145,7 +148,6 @@ gifts::gifts(QWidget *parent) :
     clothesBox->setGeometry(QRect(230,480,100,30));
     diapersBox->addItems(diapersList);
     diapersBox->setGeometry(QRect(230,200,100,30));
-
 //CheckBoxes Creation
     newBox   = new QCheckBox(this);
     usedBox = new QCheckBox(this);
@@ -159,7 +161,6 @@ gifts::gifts(QWidget *parent) :
     clothesGroup->addButton(newBox);
     clothesGroup->addButton(usedBox);
     clothesGroup->setExclusive(true);
-
 //Cancel/Ok buttons Creation
     okBtn       = new QPushButton(this);
     cancelBtn   = new QPushButton(this);
@@ -170,11 +171,59 @@ gifts::gifts(QWidget *parent) :
     okBtn->setGeometry(QRect(230, 520, 100, 30));
     cancelBtn->setGeometry(QRect(230, 550, 100, 30));
 //Button signal/slots
-    connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
+    connect(cancelBtn,SIGNAL(clicked()),this,SLOT( close() ));
+    connect(okBtn,SIGNAL( clicked() ),this,SLOT( giftSubmit() ));
 
 }
 
 gifts::~gifts()
 {
     delete ui;
+}
+
+void gifts::giftSubmit()
+{
+
+    qDebug() << "Got user input";
+
+    QString condition;
+    //If condition for New clothes is checked, place New into database.
+    if( newBox->isChecked() )
+        condition = "New";
+    else
+        condition = "Used";
+
+    //Check With Databse
+        QSqlQuery query;
+        query.prepare("INSERT INTO gifts VALUES( :userID, :date, :diapers, :diaperSize, :wipes, :blankets, :babyLotion, :babyWash, "
+                      " :babyPowder, :diaperCream, :toothbrushes, :toothpaste, :bottles, :sippyCups, :plasticPlates, 0, :clothes, :clothesSize, :clothesCond );");
+
+    //These next two values are what I am working on at the moment.
+        //query.bindValue(":userID", 1 );
+        query.bindValue(":date", "2016-08-07 00:00:00");
+    //***************************************************************
+
+
+        query.bindValue(":diapers", diaperNum->text() );
+        query.bindValue(":diaperSize", diapersBox->currentText() );
+        query.bindValue(":wipes", wipeNum->text() );
+        query.bindValue(":blankets", blanketNum->text() );
+        query.bindValue(":babyLotion", lotionNum->text() );
+        query.bindValue(":babyWash", washNum->text() );
+        query.bindValue(":babyPowder", pwderNum->text() );
+        query.bindValue(":diaperCream", cremeNum->text() );
+        query.bindValue(":toothbrushes", tthBrshNum->text() );
+        query.bindValue(":toothpaste", tthPsteNum->text() );
+        query.bindValue(":bottles", bottleNum->text() );
+        query.bindValue(":sippyCups", sippCupNum->text() );
+        query.bindValue(":plasticPlates", plateNum->text() );
+        query.bindValue(":clothes", bthClothesNum->text() );
+        query.bindValue(":clothesSize", clothesBox->currentText() );
+        query.bindValue(":clothesCond", condition );
+        query.exec();
+
+        qDebug() << query.lastQuery();
+
+
+        return;
 }
