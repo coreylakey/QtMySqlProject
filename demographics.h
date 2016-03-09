@@ -68,6 +68,7 @@ private slots:
 
     void sendInfo();
     void cancel();
+    void startQuery();
 
 
 

@@ -1,5 +1,9 @@
 #include "demographics.h"
 #include "ui_demographics.h"
+#include <QSqlQuery>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlRecord>
 
 Demographics::Demographics(QWidget *parent) :
     QDialog(parent),
@@ -151,10 +155,52 @@ void Demographics::sendInfo()
     else
     {
         qDebug() << "all fields complete. Query initiated.";
+
+        //Insert Values from form
+        startQuery();
+
         this->hide();
         giftWindow.open();
         giftWindow.setWindowTitle("South Coast Family Harbor");
     }
+}
+
+void Demographics::startQuery()
+{
+    QString gender;
+
+    if(maleBox->isChecked())
+        gender = "M";
+    else
+        gender = "F";
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO clients VALUES( :clientID, :fName, :lName, :address,"
+                      ":city, :livingSit, :housingType, :incomeSource, :childAge, :childGender,"
+                      ":howHeard, :state);");
+
+        //Gotta figure out how to do cliendIDs...
+        query.bindValue(":clientID", 0 );
+        //**************************************************
+
+        query.bindValue(":fName", fNameEdit->text() );
+        query.bindValue(":lName", lNameEdit->text() );
+        query.bindValue(":address", addressEdit->text() );
+        query.bindValue(":city", cityEdit->currentText() );
+        query.bindValue(":livingSit", livSitEdit->currentText() );
+        query.bindValue(":housingType", houseTypeEdit->currentText() );
+        query.bindValue(":incomeSource", incSrcEdit->currentText() );
+        query.bindValue(":childAge", childAgeEdit->currentText() );
+        query.bindValue(":childGender", gender );
+        query.bindValue(":howHeard", howHeardEdit->currentText() );
+        query.bindValue(":state", 0 );
+        query.exec();
+        qDebug() << query.lastQuery();
+
+
+        return;
+
+
 }
 
 void Demographics::cancel()
