@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QtSql/QSqlDatabase>
 #include "demographics.h"
+#include "adminreports.h"
 
 namespace Ui {
 class Dialog;
@@ -29,6 +30,7 @@ private:
     QLineEdit *passEdit;
     QPushButton *okBtn;
     Demographics demoGraph;
+    AdminReports adminPage;
 
 private slots:
 

@@ -87,10 +87,16 @@ void Dialog::getUser()
             if( userName == "admin" && passEdit->text() == password )   //Admin Account
             {
                 QMessageBox::information(this,qApp->tr("warning"),qApp->tr("Admin privelages activated."),QMessageBox::Ok);
+                this->hide();
+                adminPage.open();
+                adminPage.setWindowTitle("Admin Reports");
             }
             else if( userName == "guest" && passEdit->text() == password )  //Guest Account
             {
                 QMessageBox::information(this,qApp->tr("warning"),qApp->tr("Guest Account activated."),QMessageBox::Ok);
+                this->hide();
+                demoGraph.open();
+                demoGraph.setWindowTitle("South Coast Family Harbor");
             }
             else
             {
@@ -98,9 +104,7 @@ void Dialog::getUser()
                 QMessageBox::critical(this,qApp->tr("warning"),qApp->tr("User not defined."),QMessageBox::Ok);
                 return;
             }
-            this->hide();
-            demoGraph.open();
-            demoGraph.setWindowTitle("South Coast Family Harbor");
+
 
     }
 
