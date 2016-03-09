@@ -29,6 +29,10 @@ public:
 
 private:
     Ui::Demographics *ui;
+
+//For existing IDs when user is in database
+    int existingID;
+
 //New Gifts Window
     gifts giftWindow;
 //Labels
@@ -63,6 +67,9 @@ private:
 //Cancel/Ok buttons
     QPushButton* okBtn;
     QPushButton* cancelBtn;
+
+    int existingClient();
+    int getExistingId();
 
 private slots:
 

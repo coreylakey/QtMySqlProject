@@ -21,6 +21,7 @@ class gifts : public QDialog
 public:
     explicit gifts(QWidget *parent = 0);
     ~gifts();
+   int idExists;
     
 private:
     Ui::gifts *ui;

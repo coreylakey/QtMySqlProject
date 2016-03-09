@@ -169,30 +169,103 @@ void Demographics::startQuery()
 {
     QString gender;
 
-    if(maleBox->isChecked())
-        gender = "M";
+    if( existingClient() )
+    {
+        existingID = getExistingId();
+        this->hide();
+        giftWindow.open();
+        giftWindow.setWindowTitle("South Coast Family Harbor");
+        giftWindow.idExists = existingID;
+    }
     else
-        gender = "F";
+    {
+        if(maleBox->isChecked())
+            gender = "M";
+        else
+            gender = "F";
 
-        QSqlQuery query;
-        query.prepare("INSERT INTO clients VALUES( null , :fName, :lName, :address,"
-                      ":city, :livingSit, :housingType, :incomeSource, :childAge, :childGender,"
-                      ":howHeard );");
-        query.bindValue(":fName", fNameEdit->text() );
-        query.bindValue(":lName", lNameEdit->text() );
-        query.bindValue(":address", addressEdit->text() );
-        query.bindValue(":city", cityEdit->currentText() );
-        query.bindValue(":livingSit", livSitEdit->currentText() );
-        query.bindValue(":housingType", houseTypeEdit->currentText() );
-        query.bindValue(":incomeSource", incSrcEdit->currentText() );
-        query.bindValue(":childAge", childAgeEdit->currentText() );
-        query.bindValue(":childGender", gender );
-        query.bindValue(":howHeard", howHeardEdit->currentText() );
-        query.exec();
-        qDebug() << query.lastQuery();
+            QSqlQuery query;
+            query.prepare("INSERT INTO clients VALUES( null , :fName, :lName, :address,"
+                          ":city, :livingSit, :housingType, :incomeSource, :childAge, :childGender,"
+                          ":howHeard );");
+            query.bindValue(":fName", fNameEdit->text() );
+            query.bindValue(":lName", lNameEdit->text() );
+            query.bindValue(":address", addressEdit->text() );
+            query.bindValue(":city", cityEdit->currentText() );
+            query.bindValue(":livingSit", livSitEdit->currentText() );
+            query.bindValue(":housingType", houseTypeEdit->currentText() );
+            query.bindValue(":incomeSource", incSrcEdit->currentText() );
+            query.bindValue(":childAge", childAgeEdit->currentText() );
+            query.bindValue(":childGender", gender );
+            query.bindValue(":howHeard", howHeardEdit->currentText() );
+            query.exec();
+            qDebug() << query.lastQuery();
 
-        return;
+            return;
+    }
 
+
+}
+
+int Demographics::existingClient()
+{
+    QSqlQuery existCheck;
+    QString firstCheck, lastCheck;
+
+    existCheck.prepare("SELECT fName, lName FROM clients WHERE fName = :first AND lName = :last;");
+    existCheck.bindValue(":first", fNameEdit->text() );
+    existCheck.bindValue(":last", lNameEdit->text() );
+    existCheck.exec();
+
+    QSqlRecord rec = existCheck.record();
+    int firstCol = rec.indexOf("fName"); // index of the field "clientID"
+    int lastCol = rec.indexOf("lName");
+    //Get query results
+    while(existCheck.next())
+    {
+        //Put query results into QStrings.
+        qDebug() << existCheck.value(firstCol).toString(); // output all names
+        qDebug() << existCheck.value(lastCol).toString();
+        firstCheck = existCheck.value(firstCol).toString();
+        lastCheck = existCheck.value(lastCol).toString();
+        //If User is found.. go back
+        if( firstCheck == fNameEdit->text() && lastCheck == lNameEdit->text() )
+        {
+            qDebug() << "User was found in database";
+            return -1;
+        }
+    }
+
+    qDebug() << "User not in database yet.";
+    return 0;
+
+}
+
+int Demographics::getExistingId()
+{
+    QSqlQuery existCheck;
+    int retID;
+
+    existCheck.prepare("SELECT clientID FROM clients WHERE fName = :first AND lName = :last;");
+    existCheck.bindValue(":first", fNameEdit->text() );
+    existCheck.bindValue(":last", lNameEdit->text() );
+    existCheck.exec();
+
+    QSqlRecord rec = existCheck.record();
+    int clientID = rec.indexOf("clientID"); // index of the field "clientID"
+
+    //Get query results
+    while(existCheck.next())
+    {
+        //Put query results into QStrings.
+        qDebug() << existCheck.value(clientID).toString(); // clientID
+        retID = existCheck.value(clientID).toInt();
+        qDebug() << retID;
+        if( retID != 0 )
+            break;
+    }
+
+    return retID;
 
 }
 

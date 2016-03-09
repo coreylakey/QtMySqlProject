@@ -193,11 +193,24 @@ void gifts::giftSubmit()
     else
         condition = "Used";
 
-    //Check With Databse
-        QSqlQuery query;
-        query.prepare("INSERT INTO gifts VALUES( null, :date, :diapers, :diaperSize, :wipes, :blankets, :babyLotion, :babyWash, "
-                      " :babyPowder, :diaperCream, :toothbrushes, :toothpaste, :bottles, :sippyCups, :plasticPlates, :clothes, "
-                      ":clothesSize, :clothesCond, :socks, :shoes, :misc );");
+    QSqlQuery query;
+    //Check if the user is existing or not.
+        if( idExists != NULL )
+        {
+            //Check With Databse
+                query.prepare("INSERT INTO gifts VALUES( null, :date, :diapers, :diaperSize, :wipes, :blankets, :babyLotion, :babyWash, "
+                              " :babyPowder, :diaperCream, :toothbrushes, :toothpaste, :bottles, :sippyCups, :plasticPlates, :clothes, "
+                              ":clothesSize, :clothesCond, :socks, :shoes, :misc, :id );");
+                query.bindValue(":id", idExists );
+        }
+        else
+        {
+
+            //Check With Databse
+                query.prepare("INSERT INTO gifts VALUES( null, :date, :diapers, :diaperSize, :wipes, :blankets, :babyLotion, :babyWash, "
+                              " :babyPowder, :diaperCream, :toothbrushes, :toothpaste, :bottles, :sippyCups, :plasticPlates, :clothes, "
+                              ":clothesSize, :clothesCond, :socks, :shoes, :misc, null );");
+        }
 
     //These next two values are what I am working on at the moment.
         query.bindValue(":date", "2016-08-07 00:00:00");
