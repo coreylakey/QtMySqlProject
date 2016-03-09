@@ -125,9 +125,8 @@ Demographics::Demographics(QWidget *parent) :
     cancelBtn->setGeometry(QRect(320, 410, 80, 30));
 
 //Make Button Connections
-        connect(okBtn,SIGNAL( clicked() ),this,SLOT( sendInfo() ));
-        //connect(cancelBtn, SIGNAL( clicked() ),this, SLOT( cancel() ));
-        connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
+    connect(okBtn,SIGNAL( clicked() ),this,SLOT( sendInfo() ));
+    connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
 
 
 }
@@ -239,20 +238,21 @@ int Demographics::existingClient()
     QSqlRecord rec = existCheck.record();
     int firstCol = rec.indexOf("fName"); // index of the field "clientID"
     int lastCol = rec.indexOf("lName");
-    //Get query results
+
+//Get query results
     while(existCheck.next())
     {
         //Put query results into QStrings.
-        qDebug() << existCheck.value(firstCol).toString(); // output all names
-        qDebug() << existCheck.value(lastCol).toString();
-        firstCheck = existCheck.value(firstCol).toString();
-        lastCheck = existCheck.value(lastCol).toString();
+            qDebug() << existCheck.value(firstCol).toString(); // output all names
+            qDebug() << existCheck.value(lastCol).toString();
+            firstCheck = existCheck.value(firstCol).toString();
+            lastCheck = existCheck.value(lastCol).toString();
         //If User is found.. go back
-        if( firstCheck == fNameEdit->text() && lastCheck == lNameEdit->text() )
-        {
-            qDebug() << "User was found in database";
-            return -1;
-        }
+            if( firstCheck == fNameEdit->text() && lastCheck == lNameEdit->text() )
+            {
+                qDebug() << "User was found in database";
+                return -1;
+            }
     }
 
     qDebug() << "User not in database yet.";
@@ -277,11 +277,11 @@ int Demographics::getExistingId()
     while(existCheck.next())
     {
         //Put query results into QStrings.
-        qDebug() << existCheck.value(clientID).toString(); // clientID
-        retID = existCheck.value(clientID).toInt();
-        qDebug() << retID;
-        if( retID != 0 )
-            break;
+            qDebug() << existCheck.value(clientID).toString(); // clientID
+            retID = existCheck.value(clientID).toInt();
+            qDebug() << retID;
+            if( retID != 0 )
+                break;
     }
 
     return retID;

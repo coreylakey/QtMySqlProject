@@ -194,16 +194,13 @@ void gifts::giftSubmit()
         condition = "Used";
 
     QSqlQuery query;
-
     query.prepare("INSERT INTO gifts VALUES( null, :date, :diapers, :diaperSize, :wipes, :blankets, :babyLotion, :babyWash, "
                               " :babyPowder, :diaperCream, :toothbrushes, :toothpaste, :bottles, :sippyCups, :plasticPlates, :clothes, "
                               ":clothesSize, :clothesCond, :socks, :shoes, :misc, :id );");
     query.bindValue(":id", idExists );
 
-    //These next two values are what I am working on at the moment.
+    //This value is what I am working on at the moment.
         query.bindValue(":date", "2016-08-07 00:00:00");
-    //***************************************************************
-
 
         query.bindValue(":diapers", diaperNum->text() );
         query.bindValue(":diaperSize", diapersBox->currentText() );
