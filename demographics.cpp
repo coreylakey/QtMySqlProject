@@ -162,6 +162,7 @@ void Demographics::sendInfo()
         this->hide();
         giftWindow.open();
         giftWindow.setWindowTitle("South Coast Family Harbor");
+        giftWindow.idExists = existingID;
     }
 }
 
@@ -201,6 +202,24 @@ void Demographics::startQuery()
             query.exec();
             qDebug() << query.lastQuery();
 
+            query.prepare("SELECT clientID FROM clients WHERE fName = :firstName AND lName = :lastName;");
+            query.bindValue(":firstName", fNameEdit->text() );
+            query.bindValue(":lastName", lNameEdit->text() );
+            query.exec();
+
+            QSqlRecord rec = query.record();
+            int clientID = rec.indexOf("clientID"); // index of the field "clientID"
+
+            //Get query results
+            while(query.next())
+            {
+                //Put query results into QStrings.
+                qDebug() << "New user had ID of " + query.value(clientID).toString(); // clientID
+                existingID = query.value(clientID).toInt();
+
+            }
+
+            qDebug() << "No query for inserting :(";
             return;
     }
 
