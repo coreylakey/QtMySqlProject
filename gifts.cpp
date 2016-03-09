@@ -195,11 +195,11 @@ void gifts::giftSubmit()
 
     //Check With Databse
         QSqlQuery query;
-        query.prepare("INSERT INTO gifts VALUES( :userID, :date, :diapers, :diaperSize, :wipes, :blankets, :babyLotion, :babyWash, "
-                      " :babyPowder, :diaperCream, :toothbrushes, :toothpaste, :bottles, :sippyCups, :plasticPlates, 0, :clothes, :clothesSize, :clothesCond );");
+        query.prepare("INSERT INTO gifts VALUES( null, :date, :diapers, :diaperSize, :wipes, :blankets, :babyLotion, :babyWash, "
+                      " :babyPowder, :diaperCream, :toothbrushes, :toothpaste, :bottles, :sippyCups, :plasticPlates, :clothes, "
+                      ":clothesSize, :clothesCond, :socks, :shoes, :misc );");
 
     //These next two values are what I am working on at the moment.
-        //query.bindValue(":userID", 1 );
         query.bindValue(":date", "2016-08-07 00:00:00");
     //***************************************************************
 
@@ -220,6 +220,9 @@ void gifts::giftSubmit()
         query.bindValue(":clothes", bthClothesNum->text() );
         query.bindValue(":clothesSize", clothesBox->currentText() );
         query.bindValue(":clothesCond", condition );
+        query.bindValue(":socks", socksNum->text() );
+        query.bindValue(":shoes", shoesNum->text() );
+        query.bindValue(":misc", miscNum->text() );
         query.exec();
 
         qDebug() << query.lastQuery();

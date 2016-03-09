@@ -175,14 +175,9 @@ void Demographics::startQuery()
         gender = "F";
 
         QSqlQuery query;
-        query.prepare("INSERT INTO clients VALUES( :clientID, :fName, :lName, :address,"
+        query.prepare("INSERT INTO clients VALUES( null , :fName, :lName, :address,"
                       ":city, :livingSit, :housingType, :incomeSource, :childAge, :childGender,"
-                      ":howHeard, :state);");
-
-        //Gotta figure out how to do cliendIDs...
-        query.bindValue(":clientID", 0 );
-        //**************************************************
-
+                      ":howHeard );");
         query.bindValue(":fName", fNameEdit->text() );
         query.bindValue(":lName", lNameEdit->text() );
         query.bindValue(":address", addressEdit->text() );
@@ -193,10 +188,8 @@ void Demographics::startQuery()
         query.bindValue(":childAge", childAgeEdit->currentText() );
         query.bindValue(":childGender", gender );
         query.bindValue(":howHeard", howHeardEdit->currentText() );
-        query.bindValue(":state", 0 );
         query.exec();
         qDebug() << query.lastQuery();
-
 
         return;
 
