@@ -2,6 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include <QtWidgets>
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
@@ -22,8 +23,13 @@ public:
     ~Dialog();
 
 private:
+    void createFormGroupBox();
+
     Ui::Dialog *ui;
 
+
+    QLabel *banner;
+    QLabel *bottom;
     QLabel *userLbl;
     QLabel *passLbl;
     QLineEdit *userEdit;
@@ -31,6 +37,8 @@ private:
     QPushButton *okBtn;
     Demographics demoGraph;
     AdminReports adminPage;
+
+
 
 private slots:
 

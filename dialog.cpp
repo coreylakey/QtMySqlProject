@@ -7,42 +7,156 @@
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlRecord>
+#include <QtWidgets>
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    this->setMaximumSize(350,150);
-    this->setMinimumSize(350,150);
 
-//Main Background Image
-    QPixmap bkgnd("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
-    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
+    //Sets fixed size for entire window
+    this->setMaximumSize(1440,900);
+    this->setMinimumSize(1440,900);
+    this->setWindowTitle("South Coast Family Harbor");   //NOTE: Window Titles is not changing properly.
+
+    //Some Declarations..
+    QGridLayout *gridlayout = new QGridLayout;
+    QHBoxLayout *hlayoutUser = new QHBoxLayout;
+    QHBoxLayout *hlayoutPass = new QHBoxLayout;
+    QHBoxLayout *hlayoutButton = new QHBoxLayout;
+    QHBoxLayout *hlayoutBanner = new QHBoxLayout;
+    QHBoxLayout *hlayoutBottom = new QHBoxLayout;
+    QVBoxLayout *vlayout = new QVBoxLayout;
+    //A few more..
+    userLbl = new QLabel(this);
+    userEdit = new QLineEdit("", this);
+    passLbl = new QLabel(this);
+    passEdit = new QLineEdit("", this);
+    banner = new QLabel(this);
+    bottom = new QLabel(this);
+    okBtn = new QPushButton("Sign In", this);
+
+    //Tiles background image
+    QPalette *Palette = new QPalette();
+    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
+    setPalette(*Palette);
+
+    //Spacers are used to maintain a consistent layout
+        //H Spacers
+        QSpacerItem *mainHSpacer = new QSpacerItem(500,0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+        QSpacerItem *bannerHSpacer = new QSpacerItem(588,0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+        QSpacerItem *buttonHSpacer = new QSpacerItem(553,0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+        //V Spacers
+        QSpacerItem *mainVSpacer = new QSpacerItem(0,40, QSizePolicy::Fixed, QSizePolicy::Fixed);
+        QSpacerItem *bannerVSpacer = new QSpacerItem(0,150, QSizePolicy::Fixed, QSizePolicy::Fixed);
+        QSpacerItem *bottomVSpacer = new QSpacerItem(0,80, QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 
-//Create Window / connections
+//Begin constructing layouts..
+
+    //User Grid
+    hlayoutUser->setContentsMargins(0,0,0,0);
+    hlayoutUser->addSpacerItem(mainHSpacer);
+    hlayoutUser->addWidget(userLbl);
+    hlayoutUser->addWidget(userEdit);
+    hlayoutUser->addStretch();
+
+    //Password Grid
+    hlayoutPass->setContentsMargins(0,0,0,0);
+    hlayoutPass->addSpacerItem(mainHSpacer);
+    hlayoutPass->addWidget(passLbl);
+    hlayoutPass->addWidget(passEdit);
+    hlayoutPass->addStretch();
+
+    //Sign In Button Grid
+    hlayoutButton->setContentsMargins(0,0,0,0);
+    hlayoutButton->addSpacerItem(buttonHSpacer);
+    hlayoutButton->addWidget(okBtn);
+    hlayoutButton->addStretch();
+
+    //Top Banner Grid
+    hlayoutBanner->setContentsMargins(0,0,0,0);
+    hlayoutBanner->addSpacerItem(bannerHSpacer);
+    hlayoutBanner->addWidget(banner);
+    hlayoutBanner->addStretch();
+
+    //Bottom/Footer Grid
+    hlayoutBottom->setContentsMargins(0,0,0,0);
+    hlayoutBottom->addWidget(bottom);
+    hlayoutBottom->addStretch();
+
+    //Aligned and spaced vertically in layout
+    vlayout->setContentsMargins(0,0,0,0);
+    vlayout->addSpacerItem(bannerVSpacer);
+    vlayout->addLayout(hlayoutBanner);
+    vlayout->addSpacerItem(mainVSpacer);
+    vlayout->addLayout(hlayoutUser);
+    vlayout->addLayout(hlayoutPass);
+    vlayout->addLayout(hlayoutButton);
+    vlayout->addSpacerItem(bottomVSpacer);
+    vlayout->addLayout(hlayoutBottom);
+    vlayout->addStretch();
+
+    //Adds complete layout at start position of grid layout
+    gridlayout->setContentsMargins(0,0,0,0);
+    gridlayout->addLayout(vlayout,0,0);
+
+
+    //Some settings..
+        //User
+        userEdit->setMaximumWidth(350);
+        userEdit->setMinimumWidth(350);
+        userEdit->setMinimumHeight(40);
+        userEdit->setMaximumHeight(40);
+        userEdit->setPlaceholderText("Username");
+
+        //Pass
+        passEdit->setMaximumWidth(350);
+        passEdit->setMinimumWidth(350);
+        passEdit->setMinimumHeight(40);
+        passEdit->setMinimumHeight(40);
+        passEdit->setPlaceholderText("Password");
+
+        //Button
+        okBtn->setMinimumWidth(350);
+        okBtn->setMaximumWidth(350);
+        okBtn->setMaximumHeight(40);
+        okBtn->setMinimumHeight(40);
+        connect(okBtn, SIGNAL(clicked()), this, SLOT(getUser()));
+
+        //Icons
+        QPixmap user_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/user.png");
+        userLbl->setPixmap(user_pixmap);
+        QPixmap pass_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/pass.png");
+        passLbl->setPixmap(pass_pixmap);
+
+        //Banner
+        QPixmap banner_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/banner.png");
+        banner->setPixmap(banner_pixmap);
+        banner->setMaximumWidth(270);
+        banner->setMinimumWidth(270);
+        banner->setMinimumHeight(242);
+        banner->setMaximumHeight(242);
+
+        //Bottom Image
+        QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+        bottom->setPixmap(bottom_pixmap);
+        bottom->setMaximumWidth(1440);
+        bottom->setMinimumWidth(1440);
+
+
+    passEdit->setEchoMode(QLineEdit::Password);
+
     this->setWindowTitle("South Coast Family Harbor");
 
-    userLbl = new QLabel("Username", this );
-    userEdit = new QLineEdit("", this );
-    passLbl = new QLabel("Password", this );
-    passEdit = new QLineEdit("", this );
-    userLbl->setGeometry(QRect(20,40,80,30));
-    userEdit->setGeometry(QRect(100,40,200,30));
-    passLbl->setGeometry(QRect(20,80,80,30));
-    passEdit->setGeometry(QRect(100,80,200,30));
-    passEdit->setEchoMode(QLineEdit::Password);
-    okBtn = new QPushButton("OK", this );
-    okBtn->setGeometry(QRect(250, 120, 80, 30));
-
-//Set Button Connections
-    connect(okBtn,SIGNAL( clicked() ),this,SLOT( getUser() ));
-
+    setLayout(gridlayout);
 }
+
+
+
 
 Dialog::~Dialog()
 {
