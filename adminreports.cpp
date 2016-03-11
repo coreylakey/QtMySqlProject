@@ -1,5 +1,10 @@
 #include "adminreports.h"
 #include "ui_adminreports.h"
+#include <QSqlQuery>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlRecord>
+
 
 AdminReports::AdminReports(QWidget *parent) :
     QDialog(parent),
@@ -11,12 +16,11 @@ AdminReports::AdminReports(QWidget *parent) :
     this->setMinimumSize(1440,900);
     this->setWindowTitle("South Coast Family Harbor");   //NOTE: Window Titles is not changing properly.
 
-    //Main Background Image
-        QPixmap bkgnd("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
-        bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-        QPalette palette;
-        palette.setBrush(QPalette::Background, bkgnd);
-        this->setPalette(palette);
+    //Tiles background image
+    QPalette *Palette = new QPalette();
+    QPixmap *Pixmap = new QPixmap("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
+    Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
+    setPalette(*Palette);
 
 //Labels
     clientLbl = new QLabel("How many clients", this);
@@ -34,6 +38,14 @@ AdminReports::AdminReports(QWidget *parent) :
     fromLbl->setGeometry(QRect(150, 180, 50, 30));
     toLbl->setGeometry(QRect(520, 180, 50, 30));
     dateLbl->setGeometry(QRect(30, 140, 300, 30));
+//Label Fonts
+    clientLbl->setStyleSheet("QLabel {font : bold;}");
+    secClientLbl->setStyleSheet("QLabel {font : bold;}");
+    giftLbl->setStyleSheet("QLabel {font : bold;}");
+    result->setStyleSheet("QLabel {font : bold 24px;}");
+    fromLbl->setStyleSheet("QLabel {font : bold;}");
+    toLbl->setStyleSheet("QLabel {font : bold;}");
+    dateLbl->setStyleSheet("QLabel {font : bold;}");
 //CheckBoxes Creation
     yesBox   = new QCheckBox(this);
     noBox = new QCheckBox(this);
@@ -105,6 +117,29 @@ AdminReports::AdminReports(QWidget *parent) :
     connect(this->run, SIGNAL( clicked()), this, SLOT( runQuery() ));
     connect(this->cancel, SIGNAL( clicked()),this, SLOT(close() ));
     connect(this->dateGroup, SIGNAL(buttonClicked(int)),this, SLOT( setCalendar() ));
+    connect(this->csvExport, SIGNAL(clicked()),this, SLOT( exportToCSV() ));
+}
+
+void AdminReports::exportToCSV()
+{
+    // MySql only has access to tmp folder. the query is : SELECT * INTO OUTFILE '/tmp/result.csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n' FROM clients;
+    // You can only do csv dumps like this one table at a time.. so each table will need to be dumped and then individually loaded to excel.
+
+    QSqlQuery exQuery;
+    exQuery.prepare("SELECT * INTO OUTFILE '/tmp/clientTable.csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' FROM clients;");
+    exQuery.exec();
+    exQuery.prepare("SELECT * INTO OUTFILE '/tmp/giftsTable.csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' FROM gifts;");
+    exQuery.exec();
+
+    return;
+
+}
+
+void AdminReports::runQuery()
+{
+
+
+
 }
 
 void AdminReports::setCalendar()

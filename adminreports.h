@@ -54,6 +54,8 @@ private:
 private slots:
     void firstClientChange();
     void setCalendar();
+    void runQuery();
+    void exportToCSV();
 
 };
 
