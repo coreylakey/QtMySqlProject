@@ -2,7 +2,8 @@
 #define DIALOG_H
 
 #include <QDialog>
-#include <QtWidgets>
+//#include <QtWidgets>
+//#include <QWidget>
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>

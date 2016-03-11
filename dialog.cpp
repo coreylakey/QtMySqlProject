@@ -7,7 +7,10 @@
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlRecord>
-#include <QtWidgets>
+//#include <QtWidgets>
+//#include <QWidget>
+#include <QGridLayout>
+
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -39,7 +42,7 @@ Dialog::Dialog(QWidget *parent) :
 
     //Tiles background image
     QPalette *Palette = new QPalette();
-    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap *Pixmap = new QPixmap("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
     Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
     setPalette(*Palette);
 
@@ -128,13 +131,13 @@ Dialog::Dialog(QWidget *parent) :
         connect(okBtn, SIGNAL(clicked()), this, SLOT(getUser()));
 
         //Icons
-        QPixmap user_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/user.png");
+        QPixmap user_pixmap("/home/corey/Desktop/SCFHCOPY/user.png");
         userLbl->setPixmap(user_pixmap);
-        QPixmap pass_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/pass.png");
+        QPixmap pass_pixmap("/home/corey/Desktop/SCFHCOPY/pass.png");
         passLbl->setPixmap(pass_pixmap);
 
         //Banner
-        QPixmap banner_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/banner.png");
+        QPixmap banner_pixmap("/home/corey/Desktop/SCFHCOPY/banner.png");
         banner->setPixmap(banner_pixmap);
         banner->setMaximumWidth(270);
         banner->setMinimumWidth(270);
@@ -142,7 +145,7 @@ Dialog::Dialog(QWidget *parent) :
         banner->setMaximumHeight(242);
 
         //Bottom Image
-        QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+        QPixmap bottom_pixmap("/home/corey/Desktop/SCFHCOPY/bottom.png");
         bottom->setPixmap(bottom_pixmap);
         bottom->setMaximumWidth(1440);
         bottom->setMinimumWidth(1440);
