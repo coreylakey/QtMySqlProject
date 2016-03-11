@@ -10,26 +10,34 @@ Demographics::Demographics(QWidget *parent) :
     ui(new Ui::Demographics)
 {
     ui->setupUi(this);
-
-    this->setMaximumSize(450,450);
-    this->setMinimumSize(450,450);
-
-//Create Window / connections
-    this->setWindowTitle("South Coast Family Harbor");
-
-//Main Background Image
-    QPixmap bkgnd("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
-    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
+    this->setContentsMargins(0,0,0,0);
+    //Sets fixed size for entire window
+    this->setMaximumSize(1440,900);
+    this->setMinimumSize(1440,900);
+    this->setWindowTitle("South Coast Family Harbor");   //NOTE: Window Titles is not changing properly.
 
 
-//ClientInfo/ChildInfo fonts
+    //Tiles background image
+    QPalette *Palette = new QPalette();
+    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
+    setPalette(*Palette);
+
+
+//fonts
+    //titles
     QFont font;
     font.setBold(true);
     font.setUnderline(true);
-    font.setPointSize(14);
+    font.setPointSize(24);
+    //labels
+    QFont font2;
+    font2.setBold(true);
+    font2.setPointSize(12);
+    //checkboxes
+    QFont font3;
+    font3.setBold(true);
+
 //Labels Creation
     fNamelbl        = new QLabel("First Name",this );
     lNamelbl        = new QLabel("Last Name", this );
@@ -43,30 +51,52 @@ Demographics::Demographics(QWidget *parent) :
     houseTypelbl    = new QLabel("Housing Type", this );
     incSrclbl       = new QLabel("Income Source", this );
     heardlbl        = new QLabel("How did you hear about us?", this );
+    bottomImg       = new QLabel(this);
+
+    //Bottom Image
+    QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+    bottomImg->setPixmap(bottom_pixmap);
+    bottomImg->setMaximumWidth(1440);
+    bottomImg->setMinimumWidth(1440);
+
 //Labels Position
-    clientInfolbl->setGeometry(QRect(30,20,300,30));
+    clientInfolbl->setGeometry(QRect(400,50,300,30));
     clientInfolbl->setFont(font);
-    fNamelbl->setGeometry(QRect(20,50,300,30));
-    lNamelbl->setGeometry(QRect(20,80,300,30));
-    addresslbl->setGeometry(QRect(20,110,300,30));
-    citylbl->setGeometry(QRect(20,140,300,30));
-    livSitlbl->setGeometry(QRect(20,170,300,30));
-    houseTypelbl->setGeometry(QRect(20,200,300,30));
-    incSrclbl->setGeometry(QRect(20,230,300,30));
-    heardlbl->setGeometry(QRect(20,260,300,30));
-    childInfolbl->setGeometry(QRect(30,290,300,30));
+    fNamelbl->setGeometry(QRect(490,90,300,30));
+    fNamelbl->setFont(font2);
+    lNamelbl->setGeometry(QRect(490,130,300,30));
+    lNamelbl->setFont(font2);
+    addresslbl->setGeometry(QRect(490,170,300,30));
+    addresslbl->setFont(font2);
+    citylbl->setGeometry(QRect(490,210,300,30));
+    citylbl->setFont(font2);
+    livSitlbl->setGeometry(QRect(490,250,300,30));
+    livSitlbl->setFont(font2);
+    houseTypelbl->setGeometry(QRect(490,290,300,30));
+    houseTypelbl->setFont(font2);
+    incSrclbl->setGeometry(QRect(490,330,300,30));
+    incSrclbl->setFont(font2);
+    heardlbl->setGeometry(QRect(490,370,300,30));
+    heardlbl->setFont(font2);
+
+    childInfolbl->setGeometry(QRect(400,470,300,30));
     childInfolbl->setFont(font);
-    childAgelbl->setGeometry(QRect(20,320,300,30));
-    childGenderlbl->setGeometry(QRect(20,350,300,30));
+    childAgelbl->setGeometry(QRect(490,510,300,30));
+    childAgelbl->setFont(font2);
+    childGenderlbl->setGeometry(QRect(490,550,300,30));
+    childGenderlbl->setFont(font2);
+
+
+    bottomImg->setGeometry(QRect(0,663,1440,237));
 //LineEdits Creation
     fNameEdit       = new QLineEdit(this);
     lNameEdit       = new QLineEdit(this);
     addressEdit     = new QLineEdit(this);
 
 //LineEdits Position
-    fNameEdit->setGeometry(QRect(230,50,200,30));
-    lNameEdit->setGeometry(QRect(230,80,200,30));
-    addressEdit->setGeometry(QRect(230,110,200,30));
+    fNameEdit->setGeometry(QRect(700,90,200,30));
+    lNameEdit->setGeometry(QRect(700,130,200,30));
+    addressEdit->setGeometry(QRect(700,170,200,30));
 
 //ComboBoxes Creation
     cityEdit        = new QComboBox(this);
@@ -90,25 +120,27 @@ Demographics::Demographics(QWidget *parent) :
     howHeardList << "Friend" << "Family" << "Newmark Center" << "HeadStart" << "Maslow" << "Local Ads" << "Facebook" << "Other";
 //ComboBoxes attributes
     cityEdit->addItems(cityList);
-    cityEdit->setGeometry(QRect(230, 140, 200, 30));
+    cityEdit->setGeometry(QRect(700, 210, 200, 30));
     childAgeEdit->addItems(childAgeList);
-    childAgeEdit->setGeometry(QRect(230, 320, 200, 30));
+    childAgeEdit->setGeometry(QRect(700, 510, 200, 30));
     livSitEdit->addItems(livSitList);
-    livSitEdit->setGeometry(QRect(230, 170, 200, 30));
+    livSitEdit->setGeometry(QRect(700, 250, 200, 30));
     houseTypeEdit->addItems(houseTypeList);
-    houseTypeEdit->setGeometry(QRect(230, 200, 200, 30));
+    houseTypeEdit->setGeometry(QRect(700, 290, 200, 30));
     incSrcEdit->addItems(incSrcList);
-    incSrcEdit->setGeometry(QRect(230, 230, 200, 30));
+    incSrcEdit->setGeometry(QRect(700, 330, 200, 30));
     howHeardEdit->addItems(howHeardList);
-    howHeardEdit->setGeometry(QRect(230, 260, 200, 30));
+    howHeardEdit->setGeometry(QRect(700, 370, 200, 30));
 //CheckBoxes Creation
     maleBox   = new QCheckBox(this);
     femaleBox = new QCheckBox(this);
 //CheckBoxes Attributes
-    maleBox->setGeometry(QRect(230, 350, 200, 30));
+    maleBox->setGeometry(QRect(700, 550, 200, 30));
     maleBox->setText("Male");
-    femaleBox->setGeometry(QRect(230, 380, 200, 30));
+    maleBox->setFont(font3);
+    femaleBox->setGeometry(QRect(790, 550, 200, 30));
     femaleBox->setText("Female");
+    femaleBox->setFont(font3);
 //Make Gender Exclusive
     genderGroup = new QButtonGroup(this);
     genderGroup->addButton(maleBox);
@@ -121,8 +153,8 @@ Demographics::Demographics(QWidget *parent) :
     okBtn->setText("OK");
     cancelBtn->setText("Cancel");
 //Cancel/Ok buttons Position
-    okBtn->setGeometry(QRect(230, 410, 80, 30));
-    cancelBtn->setGeometry(QRect(320, 410, 80, 30));
+    okBtn->setGeometry(QRect(680, 640, 130, 40));
+    cancelBtn->setGeometry(QRect(860, 640, 130, 40));
 
 //Make Button Connections
     connect(okBtn,SIGNAL( clicked() ),this,SLOT( sendInfo() ));

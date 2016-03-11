@@ -48,6 +48,7 @@ private:
     QLabel* houseTypelbl;
     QLabel* incSrclbl;
     QLabel* heardlbl;
+    QLabel* bottomImg;
 //LineEdits
     QLineEdit* fNameEdit;
     QLineEdit* lNameEdit;

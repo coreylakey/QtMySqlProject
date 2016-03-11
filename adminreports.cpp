@@ -18,7 +18,7 @@ AdminReports::AdminReports(QWidget *parent) :
 
     //Tiles background image
     QPalette *Palette = new QPalette();
-    QPixmap *Pixmap = new QPixmap("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
+    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
     Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
     setPalette(*Palette);
 
