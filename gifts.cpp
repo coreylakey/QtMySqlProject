@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlRecord>
 
+
 gifts::gifts(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::gifts)
@@ -267,7 +268,6 @@ void gifts::giftSubmit()
         query.exec();
 
         qDebug() << query.lastQuery();
-
-
+        this->hide();
         return;
 }

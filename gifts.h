@@ -11,6 +11,7 @@
 #include <QComboBox>
 #include <QDateTime>
 
+
 namespace Ui {
 class gifts;
 }
@@ -23,6 +24,9 @@ public:
     explicit gifts(QWidget *parent = 0);
     ~gifts();
    int idExists;
+   //Cancel/Ok buttons
+       QPushButton* okBtn;
+       QPushButton* cancelBtn;
     
 private:
     Ui::gifts *ui;
@@ -80,9 +84,7 @@ private:
     QCheckBox* usedBox;
 //CheckBox Button Group (For exclusive checking)
     QButtonGroup* clothesGroup;
-//Cancel/Ok buttons
-    QPushButton* okBtn;
-    QPushButton* cancelBtn;
+
 
 private slots:
     void giftSubmit();

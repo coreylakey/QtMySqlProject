@@ -77,7 +77,7 @@ private slots:
     void sendInfo();
     void cancel();
     void startQuery();
-
+    void showAndClear();
 
 };
 

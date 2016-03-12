@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlRecord>
 
+
 Demographics::Demographics(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Demographics)
@@ -154,8 +155,9 @@ Demographics::Demographics(QWidget *parent) :
     cancelBtn->setGeometry(QRect(860, 640, 130, 40));
 
 //Make Button Connections
-    connect(okBtn,SIGNAL( clicked() ),this,SLOT( sendInfo() ));
-    connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
+    connect(okBtn,              SIGNAL( clicked()),this,SLOT( sendInfo() ));
+    connect(cancelBtn,          SIGNAL( clicked()),this,SLOT( close() ));
+    connect(giftWindow.okBtn,   SIGNAL( clicked()),this,SLOT( showAndClear() ));
 
 }
 
@@ -190,6 +192,7 @@ void Demographics::sendInfo()
         giftWindow.open();
         giftWindow.setWindowTitle("South Coast Family Harbor");
         giftWindow.idExists = existingID;
+
     }
 }
 
@@ -314,6 +317,16 @@ int Demographics::getExistingId()
 
     return retID;
 
+}
+
+void Demographics::showAndClear()
+{
+    fNameEdit->clear();
+    lNameEdit->clear();
+    addressEdit->clear();
+    maleBox->setChecked(false);
+    femaleBox->setChecked(false);
+    this->show();
 }
 
 void Demographics::cancel()
