@@ -141,8 +141,8 @@ gifts::gifts(QWidget *parent) :
     newBox   = new QCheckBox(this);
     usedBox = new QCheckBox(this);
 //CheckBoxes Position
-    newBox->setGeometry(QRect(610, 540, 50, 20));
-    usedBox->setGeometry(QRect(610, 560, 50, 20));
+    newBox->setGeometry(QRect(610, 543, 50, 20));
+    usedBox->setGeometry(QRect(610, 565, 50, 20));
 
 
 //Make Gender Exclusive

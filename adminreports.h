@@ -33,6 +33,8 @@ private:
     QLabel *toLbl;
     QLabel *dateLbl;
     QLabel *result;
+    QLabel *bottomImg;
+    QLabel *adminlbl;
 //ComboBoxes
     QComboBox *clientEdit;
     QComboBox *secClientEdit;

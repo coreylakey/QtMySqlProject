@@ -11,6 +11,7 @@ AdminReports::AdminReports(QWidget *parent) :
     ui(new Ui::AdminReports)
 {
     ui->setupUi(this);
+    this->setContentsMargins(0,0,0,0);
     //Sets fixed size for entire window
     this->setMaximumSize(1440,900);
     this->setMinimumSize(1440,900);
@@ -22,7 +23,19 @@ AdminReports::AdminReports(QWidget *parent) :
     Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
     setPalette(*Palette);
 
+    //Bottom Image
+    bottomImg   = new QLabel(this);
+    QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+    bottomImg->setPixmap(bottom_pixmap);
+    bottomImg->setMaximumWidth(1440);
+    bottomImg->setMinimumWidth(1440);
+    bottomImg->setGeometry(QRect(0,663,1440,237));
+
+
+
+
 //Labels
+    adminlbl = new QLabel("Admin Reports",this);
     clientLbl = new QLabel("How many clients", this);
     secClientLbl = new QLabel("", this);
     giftLbl = new QLabel("got", this);
@@ -30,29 +43,33 @@ AdminReports::AdminReports(QWidget *parent) :
     fromLbl = new QLabel("From:", this);
     toLbl = new QLabel("To:", this);
     dateLbl = new QLabel("Use Dates?", this);
+
+
 //Labels Positions
-    clientLbl->setGeometry(QRect(30,20,300,30));
-    secClientLbl->setGeometry(QRect(30,60,300,30));
-    giftLbl->setGeometry(QRect(30,100,300,30));
-    result->setGeometry(QRect(30,500,300,30));
-    fromLbl->setGeometry(QRect(150, 180, 50, 30));
-    toLbl->setGeometry(QRect(520, 180, 50, 30));
-    dateLbl->setGeometry(QRect(30, 140, 300, 30));
+    adminlbl->setGeometry(QRect(400,50,300,30));
+    clientLbl->setGeometry(QRect(490,90,300,30));
+    secClientLbl->setGeometry(QRect(490,130,300,30));
+    giftLbl->setGeometry(QRect(490,170,300,30));
+    result->setGeometry(QRect(430,600,300,30));
+    fromLbl->setGeometry(QRect(560, 270, 50, 30));
+    toLbl->setGeometry(QRect(910, 270, 50, 30));
+    dateLbl->setGeometry(QRect(490, 210, 300, 30));
 //Label Fonts
-    clientLbl->setStyleSheet("QLabel {font : bold;}");
-    secClientLbl->setStyleSheet("QLabel {font : bold;}");
-    giftLbl->setStyleSheet("QLabel {font : bold;}");
+    adminlbl->setStyleSheet("QLabel{font : bold 24px}");
+    clientLbl->setStyleSheet("QLabel {font : bold 15px;}");
+    secClientLbl->setStyleSheet("QLabel {font : bold 15px;}");
+    giftLbl->setStyleSheet("QLabel {font : bold 15px;}");
     result->setStyleSheet("QLabel {font : bold 24px;}");
-    fromLbl->setStyleSheet("QLabel {font : bold;}");
-    toLbl->setStyleSheet("QLabel {font : bold;}");
-    dateLbl->setStyleSheet("QLabel {font : bold;}");
+    fromLbl->setStyleSheet("QLabel {font : bold 18px;}");
+    toLbl->setStyleSheet("QLabel {font : bold 18px;}");
+    dateLbl->setStyleSheet("QLabel {font : bold 15px;}");
 //CheckBoxes Creation
     yesBox   = new QCheckBox(this);
     noBox = new QCheckBox(this);
 //CheckBoxes Attributes
-    yesBox->setGeometry(QRect(120, 140, 50, 30));
+    yesBox->setGeometry(QRect(650, 210, 50, 30));
     yesBox->setText("Yes");
-    noBox->setGeometry(QRect(180, 140, 50, 30));
+    noBox->setGeometry(QRect(710, 210, 50, 30));
     noBox->setText("No");
 //Make Gender Exclusive
     dateGroup = new QButtonGroup(this);
@@ -64,9 +81,9 @@ AdminReports::AdminReports(QWidget *parent) :
     secClientEdit = new QComboBox(this);
     giftEdit = new QComboBox(this);
 //ComboBox Positions
-    clientEdit->setGeometry(QRect(150,20,300,30));
-    secClientEdit->setGeometry(QRect(150,60,300,30));
-    giftEdit->setGeometry(QRect(150,100,300,30));
+    clientEdit->setGeometry(QRect(650,90,300,30));
+    secClientEdit->setGeometry(QRect(650,130,300,30));
+    giftEdit->setGeometry(QRect(650,170,300,30));
 //Populate the ComboBoxes
     QStringList clientList;
     QStringList giftList;
@@ -82,18 +99,18 @@ AdminReports::AdminReports(QWidget *parent) :
 
 //Calendar Creation and Position
     fromCalendar = new QCalendarWidget(this);
-    fromCalendar->setGeometry(QRect(200, 180, 300, 250));
+    fromCalendar->setGeometry(QRect(430, 300, 300, 250));
     toCalendar = new QCalendarWidget(this);
-    toCalendar->setGeometry(QRect(550, 180, 300, 250));
+    toCalendar->setGeometry(QRect(780, 300, 300, 250));
 
 //Buttons
     run = new QPushButton(this);
     cancel = new QPushButton(this);
     csvExport = new QPushButton(this);
 //Button Positions
-    run->setGeometry(QRect(800,800,150,30));
-    cancel->setGeometry(QRect(950,800,150,30));
-    csvExport->setGeometry(QRect(1100,800,150,30));
+    run->setGeometry(QRect(800,600,150,30));
+    cancel->setGeometry(QRect(950,600,150,30));
+    csvExport->setGeometry(QRect(1100,600,150,30));
 //Button Text
     run->setText("Run Query");
     cancel->setText("Cancel");
