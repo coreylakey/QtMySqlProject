@@ -234,9 +234,13 @@ void AdminReports::runDateQuery()
             break;
 
     }
-
-//Text as user sees it is same that goes into database.
-    secondArgText = "'" + secClientEdit->currentText() + "'";
+    //Text as user sees it is same that goes into database.
+            if( secClientEdit->currentText() == "Male")
+                secondArgText = "'M'";
+            else if( secClientEdit->currentText() == "Female")
+                secondArgText = "'F'";
+            else
+                secondArgText = '"' +  secClientEdit->currentText() + '"';
 //Now for gifts text as it is in database.
     giftIndex = giftEdit->currentIndex();
 
@@ -245,52 +249,52 @@ void AdminReports::runDateQuery()
         case 0:
             break;
         case 1:
-            giftText = "gifts.diapers";
+            giftText = "diapers";
             break;
         case 2:
-            giftText = "gifts.wipes";
+            giftText = "wipes";
             break;
         case 3:
-            giftText = "gifts.blankets";
+            giftText = "blankets";
             break;
         case 4:
-            giftText = "gifts.babyLotion";
+            giftText = "babyLotion";
             break;
         case 5:
-            giftText = "gifts.babyWash";
+            giftText = "babyWash";
             break;
         case 6:
-            giftText = "gifts.babyPowder";
+            giftText = "babyPowder";
             break;
         case 7:
-            giftText = "gifts.diaperCream";
+            giftText = "diaperCream";
             break;
         case 8:
-            giftText = "gifts.toothbrushes";
+            giftText = "toothbrushes";
             break;
         case 9:
-            giftText = "gifts.toothpaste";
+            giftText = "toothpaste";
             break;
         case 10:
-            giftText = "gifts.bottles";
+            giftText = "bottles";
             break;
         case 11:
-            giftText = "gifts.sippyCups";
+            giftText = "sippyCups";
             break;
         case 12:
-            giftText = "gifts.plasticPlates";
+            giftText = "plasticPlates";
             break;
         case 13:
-            giftText = "gifts.clothes";
+            giftText = "clothes";
             break;
         case 14:
-            giftText = "gifts.socks";
+            giftText = "socks";
             break;
         case 15:
-            giftText = "gifts.shoes";
+            giftText = "shoes";
             break;
         case 16:
-            giftText = "gifts.misc";
+            giftText = "misc";
             break;
         default:
             break;
@@ -301,15 +305,13 @@ void AdminReports::runDateQuery()
         qDebug() << "firstArgText is: " + firstArgText + " and secondArgText is: " + secondArgText;
             qDebug() << "From Date is " + fromDateString + " and To Date is " + toDateString;
 
-        dateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate AND :firstArg = :secondArg;");
-        dateQuery.bindValue(":firstArg", firstArgText );
-        dateQuery.bindValue(":secondArg", secondArgText );
+        dateQuery.prepare(QString("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate AND %1 = %2;").arg(firstArgText).arg(secondArgText));
         dateQuery.bindValue(":fromDate", fromDateString);
         dateQuery.bindValue(":toDate", toDateString);
         dateQuery.exec();
 
         qDebug() << "Last Query Was " + dateQuery.lastQuery();
-
+        qDebug() << "Executed Query Was " + dateQuery.executedQuery();
         //Deal with the query
         QSqlRecord rec = dateQuery.record();
         int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
@@ -327,15 +329,12 @@ void AdminReports::runDateQuery()
     }
     else if( giftEdit->currentIndex() != 0 && clientEdit->currentIndex() != 0 )
     {
-        dateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate AND :gift > 0 AND :firstArg = :secondArg;");
-        dateQuery.bindValue(":firstArg", firstArgText );
-        dateQuery.bindValue(":secondArg", secondArgText );
+        dateQuery.prepare(QString("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate AND %1 > 0 AND %2 = %3;").arg("gifts." + giftText).arg(firstArgText).arg(secondArgText));
         dateQuery.bindValue(":fromDate", fromDateString);
         dateQuery.bindValue(":toDate", toDateString);
-        dateQuery.bindValue(":gift", giftText);
         dateQuery.exec();
         qDebug() << "Last Query Was " + dateQuery.lastQuery();
-
+        qDebug() << "Executed Query Was " + dateQuery.executedQuery();
         //Deal with the query
         QSqlRecord rec = dateQuery.record();
         int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
@@ -352,11 +351,12 @@ void AdminReports::runDateQuery()
     }
     else if( giftEdit->currentIndex() == 0 && clientEdit->currentIndex() == 0 )
     {
-        dateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate;");
+        dateQuery.prepare("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate;");
         dateQuery.bindValue(":fromDate", fromDateString);
         dateQuery.bindValue(":toDate", toDateString);
         dateQuery.exec();
         qDebug() << "Last Query Was " + dateQuery.lastQuery();
+        qDebug() << "Executed Query Was " + dateQuery.executedQuery();
 
         //Deal with the query
         QSqlRecord rec = dateQuery.record();
@@ -372,6 +372,32 @@ void AdminReports::runDateQuery()
         qDebug() << "The count is " + count;
         result->setText("Total: " +  count );
     }
+    else if( giftEdit->currentIndex() != 0 && clientEdit->currentIndex() == 0 )
+    {
+        dateQuery.prepare(QString("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate and %1 > 0;").arg("gifts." + giftText));
+        dateQuery.bindValue(":fromDate", fromDateString);
+        dateQuery.bindValue(":toDate", toDateString);
+        dateQuery.exec();
+        qDebug() << "Last Query Was " + dateQuery.lastQuery();
+        qDebug() << "Executed Query Was " + dateQuery.executedQuery();
+        qDebug() << "giftText is " + giftText;
+
+
+        //Deal with the query
+        QSqlRecord rec = dateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(dateQuery.next())
+        {
+            //Put query results into strings
+            count = dateQuery.value(countIndex).toString();
+        }
+
+        result->setText("Total: " +  count );
+
+    }
 }
 
 void AdminReports::runNonDateQuery()
@@ -380,14 +406,8 @@ void AdminReports::runNonDateQuery()
     QDate       fromDate;
     QDate       toDate;
     QString     firstArgText, secondArgText, giftText;
-    QString     fromDateString, toDateString;
     int         firstArgIndex, giftIndex;
-//Get Dates
-    fromDate    = fromCalendar->selectedDate();
-    toDate      = toCalendar->selectedDate();
-    fromDateString  = '"' + fromDate.toString() + '"';
-    toDateString    = '"' + toDate.toString() + '"';
-    qDebug() << "From Date is " + fromDateString + " and To Date is " + toDateString;
+
 
 //Get sql database text equivalent to what user sees
     firstArgIndex   = clientEdit->currentIndex();
@@ -424,7 +444,12 @@ void AdminReports::runNonDateQuery()
     }
 
 //Text as user sees it is same that goes into database.
-    secondArgText = '"' +  secClientEdit->currentText() + '"';
+        if( secClientEdit->currentText() == "Male")
+            secondArgText = "'M'";
+        else if( secClientEdit->currentText() == "Female")
+            secondArgText = "'F'";
+        else
+            secondArgText = '"' +  secClientEdit->currentText() + '"';
 //Now for gifts text as it is in database.
     giftIndex = giftEdit->currentIndex();
 
@@ -484,29 +509,93 @@ void AdminReports::runNonDateQuery()
             break;
 
     }
-
-    nonDateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate;");
-    //dateQuery.bindValue(":firstArg", firstArgText );
-    //dateQuery.bindValue(":secondArg", secondArgText );
-    //dateQuery.bindValue(":fromDate", fromDateString);
-    //dateQuery.bindValue(":toDate", toDateString);
-    nonDateQuery.exec();
-
-    qDebug() << "Last Query Was " + nonDateQuery.lastQuery();
-
-    //Deal with the query
-    QSqlRecord rec = nonDateQuery.record();
-    int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
-    QString count;
-
-    //Get query results
-    while(nonDateQuery.next())
+    if( clientEdit->currentIndex() == 0 && giftEdit->currentIndex() == 0 )
     {
-        //Put query results into ints.
-        count = nonDateQuery.value(countIndex).toString();
+        nonDateQuery.prepare("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID;");
+        nonDateQuery.exec();
+
+        qDebug() << "Last Query Was " + nonDateQuery.lastQuery();
+
+        //Deal with the query
+        QSqlRecord rec = nonDateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(nonDateQuery.next())
+        {
+            //Put query results into ints.
+            count = nonDateQuery.value(countIndex).toString();
+        }
+
+        result->setText("Total: " +  count );
+    }
+    else if( clientEdit->currentIndex() == 0 && giftEdit->currentIndex() != 0 )
+    {
+        nonDateQuery.prepare(QString("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID WHERE %1 > 0;").arg(giftText));
+        nonDateQuery.exec();
+
+        qDebug() << "Last Query Was " + nonDateQuery.lastQuery();
+
+        //Deal with the query
+        QSqlRecord rec = nonDateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(nonDateQuery.next())
+        {
+            //Put query results into ints.
+            count = nonDateQuery.value(countIndex).toString();
+        }
+
+        result->setText("Total: " +  count );
+
+    }
+    else if( clientEdit->currentIndex() != 0 && giftEdit->currentIndex() == 0 )
+    {
+        nonDateQuery.prepare(QString("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID WHERE %1 = %2;").arg(firstArgText).arg(secondArgText));
+        nonDateQuery.exec();
+
+        qDebug() << "Last Query Was " + nonDateQuery.lastQuery();
+
+        //Deal with the query
+        QSqlRecord rec = nonDateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(nonDateQuery.next())
+        {
+            //Put query results into ints.
+            count = nonDateQuery.value(countIndex).toString();
+        }
+
+        result->setText("Total: " +  count );
+    }
+    else if( clientEdit->currentIndex() != 0 && giftEdit->currentIndex() != 0 )
+    {
+        nonDateQuery.prepare(QString("SELECT COUNT(*) FROM clients LEFT JOIN gifts ON clients.clientID = gifts.clientID WHERE %1 = %2 AND %3 > 0;").arg(firstArgText).arg(secondArgText).arg(giftText));
+        nonDateQuery.exec();
+
+        qDebug() << "Last Query Was " + nonDateQuery.lastQuery();
+
+        //Deal with the query
+        QSqlRecord rec = nonDateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(nonDateQuery.next())
+        {
+            //Put query results into ints.
+            count = nonDateQuery.value(countIndex).toString();
+        }
+
+        result->setText("Total: " +  count );
     }
 
-    result->setText("Total: " +  count );
+    return;
 
 }
 
