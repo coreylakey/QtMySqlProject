@@ -10,131 +10,119 @@ gifts::gifts(QWidget *parent) :
     ui(new Ui::gifts)
 {
     ui->setupUi(this);
+    this->setContentsMargins(0,0,0,0);
+    //Sets fixed size for entire window
+    this->setMaximumSize(1440,900);
+    this->setMinimumSize(1440,900);
+    this->setWindowTitle("South Coast Family Harbor");   //NOTE: Window Titles is not changing properly.
 
 
+    //Tiles background image
+    QPalette *Palette = new QPalette();
+    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
+    setPalette(*Palette);
 
-//Create Window / connections
-    this->setWindowTitle("South Coast Family Harbor");
-    this->setMaximumSize(365,600);
-    this->setMinimumSize(365,600);
+    //Bottom Image
+    bottomImg   = new QLabel(this);
+    QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+    bottomImg->setPixmap(bottom_pixmap);
+    bottomImg->setMaximumWidth(1440);
+    bottomImg->setMinimumWidth(1440);
+    bottomImg->setGeometry(QRect(0,663,1440,237));
 
 
-//Main Background Image
-    QPixmap bkgnd("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
-    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
-
-//Banner
-    banner = new QLabel(this);
-    QPixmap banner_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/banner.jpg");
-    banner->setPixmap(banner_pixmap);
-    banner->setMinimumSize(180, 161);
-    banner->setGeometry(QRect(100,10,0,0));
 
 //Label Creation    (Theres alot of labels..)
+    giftslbl = new QLabel("Gifts",this);
     diapers = new QLabel("Diapers",this);
-    diapers->setStyleSheet("QLabel {font : bold;}");
-    diapers->setGeometry(QRect(20,180,300,30));
     diapSize = new QLabel("Diaper Size", this);
-    diapSize->setGeometry(QRect(200,180,300,30));
     wipes = new QLabel("Wipes", this);
-    wipes->setStyleSheet("QLabel {font : bold;}");
-    wipes->setGeometry(QRect(20,200,300,30));
     blankets = new QLabel("Blankets", this);
-    blankets->setStyleSheet("QLabel {font : bold;}");
-    blankets->setGeometry(QRect(20, 220, 300, 30));
     bbyLotion = new QLabel("Baby Lotion", this);
-    bbyLotion->setStyleSheet("QLabel {font : bold;}");
-    bbyLotion->setGeometry(QRect(20, 240, 300, 30));
     bbyWash = new QLabel("Baby Wash", this);
-    bbyWash->setStyleSheet("QLabel {font : bold;}");
-    bbyWash->setGeometry(QRect(20, 260, 300, 30));
     bbyPwder = new QLabel("Baby Powder", this);
-    bbyPwder->setStyleSheet("QLabel {font : bold;}");
-    bbyPwder->setGeometry(QRect(20, 280, 300, 30));
     rshCreme = new QLabel("Rash Creme", this);
-    rshCreme->setStyleSheet("QLabel {font : bold;}");
-    rshCreme->setGeometry(QRect(20, 300, 300, 30));
     tthBrsh = new QLabel("ToothBrushes", this);
-    tthBrsh->setStyleSheet("QLabel {font : bold;}");
-    tthBrsh->setGeometry(QRect(20, 320, 300, 30));
     tthPste = new QLabel("ToothPaste", this);
-    tthPste->setStyleSheet("QLabel {font : bold;}");
-    tthPste->setGeometry(QRect(20, 340, 300, 30));
     bottles = new QLabel("Bottles", this);
-    bottles->setStyleSheet("QLabel {font : bold;}");
-    bottles->setGeometry(QRect(20, 360, 300, 30));
     sippCups = new QLabel("Sippy Cups", this);
-    sippCups->setStyleSheet("QLabel {font : bold;}");
-    sippCups->setGeometry(QRect(20, 380, 300, 30));
     plstcPlates = new QLabel("Plastic Plates", this);
-    plstcPlates->setStyleSheet("QLabel {font : bold;}");
-    plstcPlates->setGeometry(QRect(20, 400, 300, 30));
     bthClothes = new QLabel("Bath Clothes", this);
-    bthClothes->setStyleSheet("QLabel {font : bold;}");
-    bthClothes->setGeometry(QRect(20, 420, 300, 30));
     bthSponges = new QLabel("Bath Sponges", this);
-    bthSponges->setStyleSheet("QLabel {font : bold;}");
-    bthSponges->setGeometry(QRect(20, 440, 300, 30));
     clothes = new QLabel("Clothes", this);
-    clothes->setStyleSheet("QLabel {font : bold;}");
-    clothes->setGeometry(QRect(20, 460, 300, 30));
     clotheSize = new QLabel("Clothes Size", this);
-    clotheSize->setGeometry(QRect(200, 460, 300, 30));
     newClothes = new QLabel("New", this);
-    newClothes->setStyleSheet("QLabel {font : bold;}");
-    newClothes->setGeometry(QRect(40, 480, 300, 30));
     usedClothes = new QLabel("Used", this);
-    usedClothes->setStyleSheet("QLabel {font : bold;}");
-    usedClothes->setGeometry(QRect(40, 500, 300, 30));
     socks = new QLabel("Socks", this);
-    socks->setStyleSheet("QLabel {font : bold;}");
-    socks->setGeometry(QRect(20, 520, 300, 30));
     shoes = new QLabel("Shoes", this);
-    shoes->setStyleSheet("QLabel {font : bold;}");
-    shoes->setGeometry(QRect(20, 540, 300, 30));
     misc = new QLabel("Miscellaneous", this);
-    misc->setStyleSheet("QLabel {font : bold;}");
-    misc->setGeometry(QRect(20, 560, 300, 30));
+
+//Label Position
+    giftslbl->setGeometry(QRect(400,50,300,30));
+    diapers->setGeometry(QRect(490,90,300,30));
+    diapSize->setGeometry(QRect(720,90,300,30));
+    wipes->setGeometry(QRect(490,120,170,30));
+    blankets->setGeometry(QRect(490, 150, 300, 30));
+    bbyLotion->setGeometry(QRect(490, 180, 300, 30));
+    bbyWash->setGeometry(QRect(490, 210, 300, 30));
+    bbyPwder->setGeometry(QRect(490, 240, 300, 30));
+    rshCreme->setGeometry(QRect(490, 270, 300, 30));
+    tthBrsh->setGeometry(QRect(490, 300, 300, 30));
+    tthPste->setGeometry(QRect(490, 330, 300, 30));
+    bottles->setGeometry(QRect(490, 360, 300, 30));
+    sippCups->setGeometry(QRect(490, 390, 300, 30));
+    plstcPlates->setGeometry(QRect(490, 420, 300, 30));
+    bthClothes->setGeometry(QRect(490, 450, 300, 30));
+    bthSponges->setGeometry(QRect(490, 480, 300, 30));
+    clothes->setGeometry(QRect(490, 510, 300, 30));
+    clotheSize->setGeometry(QRect(720, 510, 300, 30));
+    newClothes->setGeometry(QRect(510, 540, 300, 30));
+    usedClothes->setGeometry(QRect(510, 560, 300, 30));
+    socks->setGeometry(QRect(490, 590, 300, 30));
+    shoes->setGeometry(QRect(490, 620, 300, 30));
+    misc->setGeometry(QRect(490, 650, 300, 30));
+
 //Spin Box Creation
     diaperNum = new QSpinBox(this);
-    diaperNum->setGeometry(QRect(140, 180, 50, 20));
     wipeNum = new QSpinBox(this);
-    wipeNum->setGeometry(QRect(140, 200, 50, 20));
     blanketNum = new QSpinBox(this);
-    blanketNum->setGeometry(QRect(140, 220, 50, 20));
     lotionNum = new QSpinBox(this);
-    lotionNum->setGeometry(QRect(140, 240, 50, 20));
     washNum = new QSpinBox(this);
-    washNum->setGeometry(QRect(140, 260, 50, 20));
     pwderNum = new QSpinBox(this);
-    pwderNum->setGeometry(QRect(140, 280, 50, 20));
     cremeNum = new QSpinBox(this);
-    cremeNum->setGeometry(QRect(140, 300, 50, 20));
     tthBrshNum = new QSpinBox(this);
-    tthBrshNum->setGeometry(QRect(140, 320, 50, 20));
     tthPsteNum = new QSpinBox(this);
-    tthPsteNum->setGeometry(QRect(140, 340, 50, 20));
     bottleNum = new QSpinBox(this);
-    bottleNum->setGeometry(QRect(140, 360, 50, 20));
     sippCupNum = new QSpinBox(this);
-    sippCupNum->setGeometry(QRect(140, 380, 50, 20));
     plateNum = new QSpinBox(this);
-    plateNum->setGeometry(QRect(140, 400, 50, 20));
     bthClothesNum = new QSpinBox(this);
-    bthClothesNum->setGeometry(QRect(140, 420, 50, 20));
     bthSpongeNum = new QSpinBox(this);
-    bthSpongeNum->setGeometry(QRect(140, 440, 50, 20));
     clthesNum = new QSpinBox(this);
-    clthesNum->setGeometry(QRect(140, 460, 50, 20));
     socksNum = new QSpinBox(this);
-    socksNum->setGeometry(QRect(140, 520, 50, 20));
     shoesNum = new QSpinBox(this);
-    shoesNum->setGeometry(QRect(140, 540, 50, 20));
     miscNum = new QSpinBox(this);
-    miscNum->setGeometry(QRect(140, 560, 50, 20));
+
+//Spin Box Position
+    diaperNum->setGeometry(QRect(610, 90, 60, 30));
+    wipeNum->setGeometry(QRect(610, 120, 60, 30));
+    blanketNum->setGeometry(QRect(610, 150, 60, 30));
+    lotionNum->setGeometry(QRect(610, 180, 60, 30));
+    washNum->setGeometry(QRect(610, 210, 60, 30));
+    pwderNum->setGeometry(QRect(610, 240, 60, 30));
+    cremeNum->setGeometry(QRect(610, 270, 60, 30));
+    tthBrshNum->setGeometry(QRect(610, 300, 60, 30));
+    tthPsteNum->setGeometry(QRect(610, 330, 60, 30));
+    bottleNum->setGeometry(QRect(610, 360, 60, 30));
+    sippCupNum->setGeometry(QRect(610, 390, 60, 30));
+    plateNum->setGeometry(QRect(610, 420, 60, 30));
+    bthClothesNum->setGeometry(QRect(610, 450, 60, 30));
+    bthSpongeNum->setGeometry(QRect(610, 480, 60, 30));
+    clthesNum->setGeometry(QRect(610, 510, 60, 30));
+    socksNum->setGeometry(QRect(610, 590, 60, 30));
+    shoesNum->setGeometry(QRect(610, 620, 60, 30));
+    miscNum->setGeometry(QRect(610, 650, 60, 30));
+
 //ComboBoxes Creation
     clothesBox = new QComboBox(this);
     diapersBox = new QComboBox(this);
@@ -145,34 +133,84 @@ gifts::gifts(QWidget *parent) :
     diapersList << "Newborn" << "1" << "2" << "3" << "4" << "5" << "6";
 //ComboBoxes attributes
     clothesBox->addItems(clothesList);
-    clothesBox->setGeometry(QRect(230,480,100,30));
     diapersBox->addItems(diapersList);
-    diapersBox->setGeometry(QRect(230,200,100,30));
+//ComboBoxes Position
+    clothesBox->setGeometry(QRect(830,510,100,30));
+    diapersBox->setGeometry(QRect(830,90,100,30));
 //CheckBoxes Creation
     newBox   = new QCheckBox(this);
     usedBox = new QCheckBox(this);
-//CheckBoxes Attributes
-    newBox->setGeometry(QRect(140, 480, 50, 20));
-    //newBox->setText("New");
-    usedBox->setGeometry(QRect(140, 500, 50, 20));
-    //usedBox->setText("Used");
+//CheckBoxes Position
+    newBox->setGeometry(QRect(610, 540, 50, 20));
+    usedBox->setGeometry(QRect(610, 560, 50, 20));
+
+
 //Make Gender Exclusive
     clothesGroup = new QButtonGroup(this);
     clothesGroup->addButton(newBox);
     clothesGroup->addButton(usedBox);
     clothesGroup->setExclusive(true);
+
+
 //Cancel/Ok buttons Creation
     okBtn       = new QPushButton(this);
     cancelBtn   = new QPushButton(this);
+
 //Cancel/Ok buttons attributes
-    okBtn->setText("SUBMIT");
+    okBtn->setText("Submit");
     cancelBtn->setText("Cancel");
+
+
 //Cancel/Ok buttons Position
-    okBtn->setGeometry(QRect(230, 520, 100, 30));
-    cancelBtn->setGeometry(QRect(230, 550, 100, 30));
+    okBtn->setGeometry(QRect(720, 650, 130, 40));
+    cancelBtn->setGeometry(QRect(890, 650, 130, 40));
+
 //Button signal/slots
     connect(cancelBtn,SIGNAL(clicked()),this,SLOT( close() ));
     connect(okBtn,SIGNAL( clicked() ),this,SLOT( giftSubmit() ));
+
+
+
+
+
+//Fonts
+    //titles
+    QFont font;
+    font.setBold(true);
+    font.setUnderline(true);
+    font.setPointSize(24);
+    //labels
+    QFont font2;
+    font2.setBold(true);
+    font2.setPointSize(12);
+    //checkboxes
+    QFont font3;
+    font3.setBold(true);
+
+    //Applied Fonts
+    giftslbl->setFont(font);
+    diapers->setFont(font2);
+    diapSize->setFont(font2);
+    wipes->setFont(font2);
+    blankets->setFont(font2);
+    bbyLotion->setFont(font2);
+    bbyWash->setFont(font2);
+    bbyPwder->setFont(font2);
+    rshCreme->setFont(font2);
+    tthBrsh->setFont(font2);
+    tthPste->setFont(font2);
+    bottles->setFont(font2);
+    sippCups->setFont(font2);
+    plstcPlates->setFont(font2);
+    bthClothes->setFont(font2);
+    bthSponges->setFont(font2);
+    clothes->setFont(font2);
+    clotheSize->setFont(font2);
+    newClothes->setFont(font2);
+    usedClothes->setFont(font2);
+    socks->setFont(font2);
+    shoes->setFont(font2);
+    misc->setFont(font2);
 
 }
 

@@ -27,6 +27,7 @@ private:
     Ui::gifts *ui;
 
 //Labels
+    QLabel *giftslbl;
     QLabel *diapers;
     QLabel *diapSize;   //indented
     QLabel *wipes;
@@ -50,6 +51,7 @@ private:
     QLabel *shoes;
     QLabel *misc;
     QLabel *banner;
+    QLabel *bottomImg;
 //Spin Boxes
     QSpinBox *diaperNum;
     QSpinBox *wipeNum;

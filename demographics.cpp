@@ -78,15 +78,12 @@ Demographics::Demographics(QWidget *parent) :
     incSrclbl->setFont(font2);
     heardlbl->setGeometry(QRect(490,370,300,30));
     heardlbl->setFont(font2);
-
     childInfolbl->setGeometry(QRect(400,470,300,30));
     childInfolbl->setFont(font);
     childAgelbl->setGeometry(QRect(490,510,300,30));
     childAgelbl->setFont(font2);
     childGenderlbl->setGeometry(QRect(490,550,300,30));
     childGenderlbl->setFont(font2);
-
-
     bottomImg->setGeometry(QRect(0,663,1440,237));
 //LineEdits Creation
     fNameEdit       = new QLineEdit(this);
