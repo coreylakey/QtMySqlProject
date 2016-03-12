@@ -9,6 +9,7 @@
 #include <QButtonGroup>
 #include <QPushButton>
 #include <QComboBox>
+#include <QDateTime>
 
 namespace Ui {
 class gifts;

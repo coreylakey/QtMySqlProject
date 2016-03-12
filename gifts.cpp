@@ -19,13 +19,13 @@ gifts::gifts(QWidget *parent) :
 
     //Tiles background image
     QPalette *Palette = new QPalette();
-    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap *Pixmap = new QPixmap("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
     Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
     setPalette(*Palette);
 
     //Bottom Image
     bottomImg   = new QLabel(this);
-    QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+    QPixmap bottom_pixmap("/home/corey/Desktop/SCFHCOPY/bottom.png");
     bottomImg->setPixmap(bottom_pixmap);
     bottomImg->setMaximumWidth(1440);
     bottomImg->setMinimumWidth(1440);
@@ -222,7 +222,12 @@ gifts::~gifts()
 void gifts::giftSubmit()
 {
 
+
     qDebug() << "Got user input";
+
+    //Todays Date
+        QDateTime today;
+        today = QDateTime::currentDateTime();
 
     QString condition;
     //If condition for New clothes is checked, place New into database.
@@ -238,7 +243,7 @@ void gifts::giftSubmit()
     query.bindValue(":id", idExists );
 
     //This value is what I am working on at the moment.
-        query.bindValue(":date", "2016-08-07 00:00:00");
+        query.bindValue(":date", today);
 
         query.bindValue(":diapers", diaperNum->text() );
         query.bindValue(":diaperSize", diapersBox->currentText() );

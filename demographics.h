@@ -79,9 +79,6 @@ private slots:
     void startQuery();
 
 
-
-
-
 };
 
 #endif // DEMOGRAPHICS_H

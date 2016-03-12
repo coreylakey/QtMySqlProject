@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 //Main Background Image
-    QPixmap bkgnd("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap bkgnd("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //Banner
     banner = new QLabel(this);
-    QPixmap banner_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/banner1.png");
+    QPixmap banner_pixmap("/home/corey/Desktop/SCFHCOPY/banner1.png");
     banner->setPixmap(banner_pixmap);
     banner->setMinimumSize(180, 161);
     //banner->setAlignment(Qt::AlignBaseline);
@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     dbPwdLb = new QLabel("Pwd",this);
     dbPwdLb->setStyleSheet("QLabel {font : bold;}");
 //  dbPwdLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
-    dbPwdInput = new QLineEdit("Mayfire11!",this);
+    dbPwdInput = new QLineEdit("shoogadabob",this);
     dbUserLb->setGeometry(QRect(40,220,80,30));
     dbUserInput->setGeometry(QRect(120,220,200,30));
     dbPwdLb->setGeometry(QRect(40,260,80,30));
@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     dbAddressLb->setStyleSheet("QLabel {font : bold;}");
 //  dbAddressLb->setStyleSheet("QLabel { background-color : yellow; color : green; }");
     dbAddressLb->setGeometry(QRect(40,340,200,30));
-    dbAddressInput = new QLineEdit("Localhost",this);
+    dbAddressInput = new QLineEdit("localhost",this);
     dbAddressInput->setGeometry(QRect(120,340,200,30));
     dbPortLb = new QLabel("DB Port",this);
     dbPortLb->setStyleSheet("QLabel {font : bold;}");

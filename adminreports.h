@@ -22,6 +22,9 @@ public:
     explicit AdminReports(QWidget *parent = 0);
     ~AdminReports();
 
+    void runDateQuery();
+    void runNonDateQuery();
+
 private:
     Ui::AdminReports *ui;
 

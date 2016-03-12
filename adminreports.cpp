@@ -19,13 +19,13 @@ AdminReports::AdminReports(QWidget *parent) :
 
     //Tiles background image
     QPalette *Palette = new QPalette();
-    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap *Pixmap = new QPixmap("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
     Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
     setPalette(*Palette);
 
     //Bottom Image
     bottomImg   = new QLabel(this);
-    QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+    QPixmap bottom_pixmap("/home/corey/Desktop/SCFHCOPY/bottom.png");
     bottomImg->setPixmap(bottom_pixmap);
     bottomImg->setMaximumWidth(1440);
     bottomImg->setMinimumWidth(1440);
@@ -154,9 +154,16 @@ void AdminReports::exportToCSV()
 
 void AdminReports::runQuery()
 {
+    if( yesBox->isChecked())
+    {
+        runDateQuery();
+    }
+    else if( noBox->isChecked())
+    {
+        runNonDateQuery();
+    }
 
-
-
+    return;
 }
 
 void AdminReports::setCalendar()
@@ -179,8 +186,329 @@ void AdminReports::setCalendar()
     return;
 
 }
+void AdminReports::runDateQuery()
+{
+    QSqlQuery       dateQuery;
+    QDate           fromDate;
+    QDate           toDate;
+    QString         firstArgText, secondArgText, giftText;
+    QString         fromDateString, toDateString;
+    int             firstArgIndex, giftIndex;
+//Get Dates
+    fromDate    = fromCalendar->selectedDate();
+    toDate      = toCalendar->selectedDate();
+    fromDateString  = fromDate.toString("yyyy-MM-dd");
+    toDateString    = toDate.toString("yyyy-MM-dd");
+    qDebug() << "From Date is " + fromDateString + " and To Date is " + toDateString;
 
+//Get sql database text equivalent to what user sees
+    firstArgIndex   = clientEdit->currentIndex();
+    giftIndex       = giftEdit->currentIndex();
 
+    switch( firstArgIndex )
+    {
+        case 0:
+            break;
+        case 1:
+            firstArgText = "clients.city";
+            break;
+        case 2:
+            firstArgText = "clients.livingSit";
+            break;
+        case 3:
+            firstArgText = "clients.housingType";
+            break;
+        case 4:
+            firstArgText = "clients.incomeSource";
+            break;
+        case 5:
+            firstArgText = "clients.howHeard";
+            break;
+        case 6:
+            firstArgText = "clients.childAge";
+            break;
+        case 7:
+            firstArgText = "clients.childGender";
+            break;
+        default:
+            break;
+
+    }
+
+//Text as user sees it is same that goes into database.
+    secondArgText = "'" + secClientEdit->currentText() + "'";
+//Now for gifts text as it is in database.
+    giftIndex = giftEdit->currentIndex();
+
+    switch( giftIndex )
+    {
+        case 0:
+            break;
+        case 1:
+            giftText = "gifts.diapers";
+            break;
+        case 2:
+            giftText = "gifts.wipes";
+            break;
+        case 3:
+            giftText = "gifts.blankets";
+            break;
+        case 4:
+            giftText = "gifts.babyLotion";
+            break;
+        case 5:
+            giftText = "gifts.babyWash";
+            break;
+        case 6:
+            giftText = "gifts.babyPowder";
+            break;
+        case 7:
+            giftText = "gifts.diaperCream";
+            break;
+        case 8:
+            giftText = "gifts.toothbrushes";
+            break;
+        case 9:
+            giftText = "gifts.toothpaste";
+            break;
+        case 10:
+            giftText = "gifts.bottles";
+            break;
+        case 11:
+            giftText = "gifts.sippyCups";
+            break;
+        case 12:
+            giftText = "gifts.plasticPlates";
+            break;
+        case 13:
+            giftText = "gifts.clothes";
+            break;
+        case 14:
+            giftText = "gifts.socks";
+            break;
+        case 15:
+            giftText = "gifts.shoes";
+            break;
+        case 16:
+            giftText = "gifts.misc";
+            break;
+        default:
+            break;
+
+    }
+    if( giftEdit->currentIndex() == 0  && clientEdit->currentIndex() != 0 )
+    {
+        qDebug() << "firstArgText is: " + firstArgText + " and secondArgText is: " + secondArgText;
+            qDebug() << "From Date is " + fromDateString + " and To Date is " + toDateString;
+
+        dateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate AND :firstArg = :secondArg;");
+        dateQuery.bindValue(":firstArg", firstArgText );
+        dateQuery.bindValue(":secondArg", secondArgText );
+        dateQuery.bindValue(":fromDate", fromDateString);
+        dateQuery.bindValue(":toDate", toDateString);
+        dateQuery.exec();
+
+        qDebug() << "Last Query Was " + dateQuery.lastQuery();
+
+        //Deal with the query
+        QSqlRecord rec = dateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(dateQuery.next())
+        {
+            //Put query results into ints.
+            count = dateQuery.value(countIndex).toString();
+            qDebug() << count;
+        }
+
+        result->setText("Total: " +  count );
+    }
+    else if( giftEdit->currentIndex() != 0 && clientEdit->currentIndex() != 0 )
+    {
+        dateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate AND :gift > 0 AND :firstArg = :secondArg;");
+        dateQuery.bindValue(":firstArg", firstArgText );
+        dateQuery.bindValue(":secondArg", secondArgText );
+        dateQuery.bindValue(":fromDate", fromDateString);
+        dateQuery.bindValue(":toDate", toDateString);
+        dateQuery.bindValue(":gift", giftText);
+        dateQuery.exec();
+        qDebug() << "Last Query Was " + dateQuery.lastQuery();
+
+        //Deal with the query
+        QSqlRecord rec = dateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(dateQuery.next())
+        {
+            //Put query results into ints.
+            count = dateQuery.value(countIndex).toString();
+        }
+
+        result->setText("Total: " +  count );
+    }
+    else if( giftEdit->currentIndex() == 0 && clientEdit->currentIndex() == 0 )
+    {
+        dateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate between :fromDate and :toDate;");
+        dateQuery.bindValue(":fromDate", fromDateString);
+        dateQuery.bindValue(":toDate", toDateString);
+        dateQuery.exec();
+        qDebug() << "Last Query Was " + dateQuery.lastQuery();
+
+        //Deal with the query
+        QSqlRecord rec = dateQuery.record();
+        int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+        QString count;
+
+        //Get query results
+        while(dateQuery.next())
+        {
+            //Put query results into ints.
+            count = dateQuery.value(countIndex).toString();
+        }
+        qDebug() << "The count is " + count;
+        result->setText("Total: " +  count );
+    }
+}
+
+void AdminReports::runNonDateQuery()
+{
+    QSqlQuery nonDateQuery;
+    QDate       fromDate;
+    QDate       toDate;
+    QString     firstArgText, secondArgText, giftText;
+    QString     fromDateString, toDateString;
+    int         firstArgIndex, giftIndex;
+//Get Dates
+    fromDate    = fromCalendar->selectedDate();
+    toDate      = toCalendar->selectedDate();
+    fromDateString  = '"' + fromDate.toString() + '"';
+    toDateString    = '"' + toDate.toString() + '"';
+    qDebug() << "From Date is " + fromDateString + " and To Date is " + toDateString;
+
+//Get sql database text equivalent to what user sees
+    firstArgIndex   = clientEdit->currentIndex();
+    giftIndex       = giftEdit->currentIndex();
+
+    switch( firstArgIndex )
+    {
+        case 0:
+            break;
+        case 1:
+            firstArgText = "clients.city";
+            break;
+        case 2:
+            firstArgText = "clients.livingSit";
+            break;
+        case 3:
+            firstArgText = "clients.housingType";
+            break;
+        case 4:
+            firstArgText = "clients.incomeSource";
+            break;
+        case 5:
+            firstArgText = "clients.howHeard";
+            break;
+        case 6:
+            firstArgText = "clients.childAge";
+            break;
+        case 7:
+            firstArgText = "clients.childGender";
+            break;
+        default:
+            break;
+
+    }
+
+//Text as user sees it is same that goes into database.
+    secondArgText = '"' +  secClientEdit->currentText() + '"';
+//Now for gifts text as it is in database.
+    giftIndex = giftEdit->currentIndex();
+
+    switch( giftIndex )
+    {
+        case 0:
+            break;
+        case 1:
+            giftText = "gifts.diapers";
+            break;
+        case 2:
+            giftText = "gifts.wipes";
+            break;
+        case 3:
+            giftText = "gifts.blankets";
+            break;
+        case 4:
+            giftText = "gifts.babyLotion";
+            break;
+        case 5:
+            giftText = "gifts.babyWash";
+            break;
+        case 6:
+            giftText = "gifts.babyPowder";
+            break;
+        case 7:
+            giftText = "gifts.diaperCream";
+            break;
+        case 8:
+            giftText = "gifts.toothbrushes";
+            break;
+        case 9:
+            giftText = "gifts.toothpaste";
+            break;
+        case 10:
+            giftText = "gifts.bottles";
+            break;
+        case 11:
+            giftText = "gifts.sippyCups";
+            break;
+        case 12:
+            giftText = "gifts.plasticPlates";
+            break;
+        case 13:
+            giftText = "gifts.clothes";
+            break;
+        case 14:
+            giftText = "gifts.socks";
+            break;
+        case 15:
+            giftText = "gifts.shoes";
+            break;
+        case 16:
+            giftText = "gifts.misc";
+            break;
+        default:
+            break;
+
+    }
+
+    nonDateQuery.prepare("SELECT COUNT(*) FROM clients JOIN gifts ON clients.clientID = gifts.clientID WHERE gifts.giftDate;");
+    //dateQuery.bindValue(":firstArg", firstArgText );
+    //dateQuery.bindValue(":secondArg", secondArgText );
+    //dateQuery.bindValue(":fromDate", fromDateString);
+    //dateQuery.bindValue(":toDate", toDateString);
+    nonDateQuery.exec();
+
+    qDebug() << "Last Query Was " + nonDateQuery.lastQuery();
+
+    //Deal with the query
+    QSqlRecord rec = nonDateQuery.record();
+    int countIndex = rec.indexOf("COUNT(*)"); // index of the field "clientID"
+    QString count;
+
+    //Get query results
+    while(nonDateQuery.next())
+    {
+        //Put query results into ints.
+        count = nonDateQuery.value(countIndex).toString();
+    }
+
+    result->setText("Total: " +  count );
+
+}
 
 void AdminReports::firstClientChange()
 {

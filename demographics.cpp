@@ -19,7 +19,7 @@ Demographics::Demographics(QWidget *parent) :
 
     //Tiles background image
     QPalette *Palette = new QPalette();
-    QPixmap *Pixmap = new QPixmap("/home/mycoal/Desktop/QtProjects/SCFH/bg_tile.jpg");
+    QPixmap *Pixmap = new QPixmap("/home/corey/Desktop/SCFHCOPY/bg_tile.jpg");
     Palette->setBrush(QPalette::Background,QBrush(*Pixmap));
     setPalette(*Palette);
 
@@ -54,7 +54,7 @@ Demographics::Demographics(QWidget *parent) :
     bottomImg       = new QLabel(this);
 
     //Bottom Image
-    QPixmap bottom_pixmap("/home/mycoal/Desktop/QtProjects/SCFH/bottom.png");
+    QPixmap bottom_pixmap("/home/corey/Desktop/SCFHCOPY/bottom.png");
     bottomImg->setPixmap(bottom_pixmap);
     bottomImg->setMaximumWidth(1440);
     bottomImg->setMinimumWidth(1440);
@@ -156,7 +156,6 @@ Demographics::Demographics(QWidget *parent) :
 //Make Button Connections
     connect(okBtn,SIGNAL( clicked() ),this,SLOT( sendInfo() ));
     connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
-
 
 }
 
