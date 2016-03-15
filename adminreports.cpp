@@ -99,9 +99,9 @@ AdminReports::AdminReports(QWidget *parent) :
 
 //Calendar Creation and Position
     fromCalendar = new QCalendarWidget(this);
-    fromCalendar->setGeometry(QRect(430, 300, 300, 250));
+    fromCalendar->setGeometry(QRect(370, 300, 450, 250));
     toCalendar = new QCalendarWidget(this);
-    toCalendar->setGeometry(QRect(780, 300, 300, 250));
+    toCalendar->setGeometry(QRect(840, 300, 450, 250));
 
 //Buttons
     run = new QPushButton(this);

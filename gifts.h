@@ -27,7 +27,29 @@ public:
    //Cancel/Ok buttons
        QPushButton* okBtn;
        QPushButton* cancelBtn;
-    
+
+       //Spin Boxes
+           QSpinBox *diaperNum;
+           QSpinBox *wipeNum;
+           QSpinBox *blanketNum;
+           QSpinBox *lotionNum;
+           QSpinBox *washNum;
+           QSpinBox *pwderNum;
+           QSpinBox *cremeNum;
+           QSpinBox *tthBrshNum;
+           QSpinBox *tthPsteNum;
+           QSpinBox *bottleNum;
+           QSpinBox *sippCupNum;
+           QSpinBox *plateNum;
+           QSpinBox *bthClothesNum;
+           QSpinBox *bthSpongeNum;
+           QSpinBox *clthesNum;
+           QSpinBox *socksNum;
+           QSpinBox *shoesNum;
+           QSpinBox *miscNum;
+       //ComboBoxes
+           QComboBox *clothesBox;
+           QComboBox *diapersBox;
 private:
     Ui::gifts *ui;
 
@@ -57,28 +79,7 @@ private:
     QLabel *misc;
     QLabel *banner;
     QLabel *bottomImg;
-//Spin Boxes
-    QSpinBox *diaperNum;
-    QSpinBox *wipeNum;
-    QSpinBox *blanketNum;
-    QSpinBox *lotionNum;
-    QSpinBox *washNum;
-    QSpinBox *pwderNum;
-    QSpinBox *cremeNum;
-    QSpinBox *tthBrshNum;
-    QSpinBox *tthPsteNum;
-    QSpinBox *bottleNum;
-    QSpinBox *sippCupNum;
-    QSpinBox *plateNum;
-    QSpinBox *bthClothesNum;
-    QSpinBox *bthSpongeNum;
-    QSpinBox *clthesNum;
-    QSpinBox *socksNum;
-    QSpinBox *shoesNum;
-    QSpinBox *miscNum;
-//ComboBoxes
-    QComboBox *clothesBox;
-    QComboBox *diapersBox;
+
 //CheckBoxes
     QCheckBox* newBox;
     QCheckBox* usedBox;

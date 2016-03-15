@@ -326,6 +326,26 @@ void Demographics::showAndClear()
     addressEdit->clear();
     maleBox->setChecked(false);
     femaleBox->setChecked(false);
+    giftWindow.diaperNum->clear();
+    giftWindow.wipeNum->clear();
+    giftWindow.blanketNum->clear();
+    giftWindow.lotionNum->clear();
+    giftWindow.washNum->clear();
+    giftWindow.pwderNum->clear();
+    giftWindow.cremeNum->clear();
+    giftWindow.tthBrshNum->clear();
+    giftWindow.tthPsteNum->clear();
+    giftWindow.bottleNum->clear();
+    giftWindow.sippCupNum->clear();
+    giftWindow.plateNum->clear();
+    giftWindow.bthClothesNum->clear();
+    giftWindow.bthSpongeNum->clear();
+    giftWindow.clthesNum->clear();
+    giftWindow.socksNum->clear();
+    giftWindow.shoesNum->clear();
+    giftWindow.miscNum->clear();
+    giftWindow.clothesBox->clear();
+    giftWindow.diapersBox->clear();
     this->show();
 }
 
